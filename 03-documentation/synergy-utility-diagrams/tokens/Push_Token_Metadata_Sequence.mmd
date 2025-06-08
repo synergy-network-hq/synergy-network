@@ -1,0 +1,9 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Push Metadata'
+    Tool->>User: Select Token
+    Tool->>User: Edit Metadata JSON
+    User->>Tool: Save Changes
+    Tool->>Tool: Upload to IPFS
+    Tool->>User: Display Metadata URI

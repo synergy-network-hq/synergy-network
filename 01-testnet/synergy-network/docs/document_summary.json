@@ -1,0 +1,29 @@
+{
+  "documents": [
+    {
+      "original": "Proof of Synergy Whitepaper.docx",
+      "extracted": "Proof of Synergy Whitepaper.txt",
+      "title": "Proof of Synergy Whitepaper"
+    },
+    {
+      "original": "Synergy Token Whitepaper.docx",
+      "extracted": "Synergy Token Whitepaper.txt",
+      "title": "Synergy Token Whitepaper"
+    },
+    {
+      "original": "real-world use cases.docx",
+      "extracted": "real-world use cases.txt",
+      "title": "real-world use cases"
+    },
+    {
+      "original": "Synergy Network Whitepaper.docx",
+      "extracted": "Synergy Network Whitepaper.txt",
+      "title": "Synergy Network Whitepaper"
+    },
+    {
+      "original": "Synergy Network Address Formatting.docx",
+      "extracted": "Synergy Network Address Formatting.txt",
+      "title": "Synergy Network Address Formatting"
+    }
+  ]
+}

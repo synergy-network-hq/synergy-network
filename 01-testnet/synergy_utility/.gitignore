@@ -1,0 +1,45 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Electron / Build artifacts
+/dist/
+/build/
+/out/
+/release/
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.env
+.venv/
+venv/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Wallets and local secrets
+.synergy/
+*.synwallet
+*.json
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# OS & temp files
+*.swp
+*.swo
+Thumbs.db
+ehthumbs.db
+Icon?

@@ -1,0 +1,37 @@
+{
+  "name": "synergy-network-gui-utility",
+  "version": "1.0.0",
+  "description": "GUI Utility Tool for Synergy Network",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Synergy Network Team",
+  "license": "MIT",
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  },
+  "devDependencies": {
+    "electron": "^20.0.0",
+    "electron-builder": "^23.3.3"
+  },
+  "build": {
+    "appId": "com.synergy.network.utility",
+    "productName": "Synergy Network Utility",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "./assets/syn.icns"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}

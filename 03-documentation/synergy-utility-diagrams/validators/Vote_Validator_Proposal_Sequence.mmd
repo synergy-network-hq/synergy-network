@@ -1,0 +1,11 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Vote Proposals'
+    Tool->>Tool: Retrieve Active Validator Proposals
+    Tool->>User: Show List
+    User->>Tool: Select Proposal
+    Tool->>User: Enter Vote (Yes/No)
+    User->>Tool: Confirm Submission
+    Tool->>Tool: Broadcast Vote
+    Tool->>User: Vote Confirmed

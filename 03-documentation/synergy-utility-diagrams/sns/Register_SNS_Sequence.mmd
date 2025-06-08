@@ -1,0 +1,11 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Register SNS'
+    Tool->>User: Prompt for SNS Name
+    User->>Tool: Enter Name
+    Tool->>Tool: Check Availability
+    Tool->>User: Confirm Registration
+    User->>Tool: Confirm
+    Tool->>Tool: Register On-Chain and Link Wallet
+    Tool->>User: Registration Complete

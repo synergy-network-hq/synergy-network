@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Mint Token'
+    Tool->>User: Select Token
+    User->>Tool: Enter Recipient and Amount
+    Tool->>User: Confirm Mint Action
+    User->>Tool: Confirm
+    Tool->>Tool: Mint Tokens On-Chain
+    Tool->>User: Show Transaction Result

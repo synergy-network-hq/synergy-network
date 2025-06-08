@@ -1,0 +1,206 @@
+graph TD
+    Home[Synergy Utility Tool - Home Screen]
+    
+    Home --> Wallets
+    Home --> Tokens
+    Home --> SmartContracts
+    Home --> SNS
+    Home --> UMA
+    Home --> Validators
+    Home --> Governance
+    Home --> Settings
+
+    %% Wallets Full Tree
+    Wallets --> CreateWallet
+    Wallets --> ImportWallet
+    Wallets --> ViewWallet
+    Wallets --> ManageWallets
+
+    CreateWallet --> ConfirmCreateWallet
+    ConfirmCreateWallet --> EnterPassphrase
+    EnterPassphrase --> ConfirmPassphrase
+    ConfirmPassphrase --> EnterPIN
+    EnterPIN --> ConfirmPIN
+    ConfirmPIN --> GenerateSeed
+    GenerateSeed --> ShowSeed
+    ShowSeed --> EnterSNS
+    EnterSNS --> ConfirmSNS
+    ConfirmSNS --> FinalSummary
+    FinalSummary --> ConfirmSeedReentry
+    ConfirmSeedReentry --> WalletCreated
+
+    ImportWallet --> EnterSeedPhrase
+    EnterSeedPhrase --> OptionalBackupFile
+    OptionalBackupFile --> NewPassphrase
+    NewPassphrase --> ConfirmNewPassphrase
+    ConfirmNewPassphrase --> NewPIN
+    NewPIN --> ConfirmNewPIN
+    ConfirmNewPIN --> ReconstructWallet
+    ReconstructWallet --> WalletImported
+
+    ViewWallet --> WalletMetadata
+    WalletMetadata --> TokenBalances
+    WalletMetadata --> SynergyScore
+    WalletMetadata --> LinkedSNS
+
+    %% Tokens Full Tree
+    Tokens --> CreateToken
+    Tokens --> ViewToken
+    Tokens --> MintToken
+    Tokens --> BurnToken
+    Tokens --> AttachSNS
+    Tokens --> PushMetadata
+
+    CreateToken --> EnterTokenDetails
+    EnterTokenDetails --> ChooseDecimals
+    ChooseDecimals --> SetCategory
+    SetCategory --> OptionalSNSAttach
+    OptionalSNSAttach --> MetadataToIPFS
+    MetadataToIPFS --> DisplayTokenDetails
+
+    MintToken --> SelectToken
+    MintToken --> EnterMintAmount
+    EnterMintAmount --> ConfirmMint
+    ConfirmMint --> MintSuccess
+
+    BurnToken --> SelectTokenToBurn
+    BurnToken --> EnterBurnAmount
+    EnterBurnAmount --> ConfirmBurn
+    ConfirmBurn --> BurnSuccess
+
+    %% SNS Full Tree
+    SNS --> RegisterSNS
+    SNS --> TransferSNS
+    SNS --> ViewSNS
+    SNS --> LinkSNSWallet
+    SNS --> LinkSNSToken
+
+    RegisterSNS --> EnterSNS
+    EnterSNS --> CheckAvailability
+    CheckAvailability --> ConfirmEntry
+    ConfirmEntry --> LinkToWallet
+    LinkToWallet --> WriteToChain
+    WriteToChain --> SNSSuccess
+
+    TransferSNS --> EnterCurrentSNS
+    EnterCurrentSNS --> EnterRecipientAddress
+    EnterRecipientAddress --> ConfirmTransfer
+    ConfirmTransfer --> UpdateSNSRecord
+    UpdateSNSRecord --> TransferComplete
+%% Smart Contracts Full Tree
+    SmartContracts --> DeployContract
+    SmartContracts --> ViewContract
+    SmartContracts --> CallMethod
+    SmartContracts --> UpgradeContract
+
+    DeployContract --> UploadSourceCode
+    UploadSourceCode --> CompileContract
+    CompileContract --> SelectNetwork
+    SelectNetwork --> DeployToChain
+    DeployToChain --> DisplayContractInfo
+
+    ViewContract --> EnterContractAddress
+    EnterContractAddress --> RetrieveABI
+    RetrieveABI --> DisplayState
+
+    CallMethod --> SelectContract
+    CallMethod --> ChooseMethod
+    ChooseMethod --> EnterArguments
+    EnterArguments --> ExecuteMethod
+    ExecuteMethod --> ShowResponse
+
+    UpgradeContract --> SelectUpgradeable
+    UpgradeContract --> UploadNewVersion
+    UploadNewVersion --> ConfirmUpgrade
+    ConfirmUpgrade --> DeploymentComplete
+
+    %% UMA Full Tree
+    UMA --> GenerateUMA
+    UMA --> LinkUMA
+    UMA --> ViewUMA
+
+    GenerateUMA --> ConfirmSNS
+    ConfirmSNS --> DeriveUMA
+    DeriveUMA --> DisplayUMA
+
+    LinkUMA --> InputExternalAddresses
+    InputExternalAddresses --> NormalizeFormat
+    NormalizeFormat --> LinkToSNS
+    LinkToSNS --> ConfirmUMARecord
+
+    ViewUMA --> QuerySNS
+    QuerySNS --> ResolveUMA
+    ResolveUMA --> ShowMappings
+
+    %% Validators Full Tree
+    Validators --> RegisterValidator
+    Validators --> StartValidator
+    Validators --> ViewRewards
+    Validators --> VoteProposals
+    Validators --> StopValidator
+
+    RegisterValidator --> ChooseValidatorType
+    ChooseValidatorType --> InputNodeInfo
+    InputNodeInfo --> StakeSYN
+    StakeSYN --> GenerateValidatorRecord
+    GenerateValidatorRecord --> ConfirmValidator
+
+    StartValidator --> AuthenticateNode
+    AuthenticateNode --> StartNodeProcess
+    StartNodeProcess --> NodeRunning
+
+    ViewRewards --> QueryValidator
+    QueryValidator --> DisplayRewards
+
+    VoteProposals --> ViewActiveProposals
+    ViewActiveProposals --> CastVote
+    CastVote --> VoteConfirmation
+
+    StopValidator --> ConfirmShutdown
+    ConfirmShutdown --> StopNodeProcess
+
+    %% Governance Full Tree
+    Governance --> SubmitProposal
+    Governance --> VoteProposal
+    Governance --> ViewProposals
+    Governance --> DAOClusterPanel
+
+    SubmitProposal --> EnterProposalDetails
+    EnterProposalDetails --> SubmitForReview
+    SubmitForReview --> AwaitApproval
+
+    VoteProposal --> SelectProposal
+    SelectProposal --> ViewProposalDetails
+    ViewProposalDetails --> CastVoteGov
+    CastVoteGov --> VoteSuccess
+
+    ViewProposals --> FilterByStatus
+    FilterByStatus --> DisplayProposalList
+
+    DAOClusterPanel --> AccessClusterMetrics
+    AccessClusterMetrics --> ModifyDelegation
+    ModifyDelegation --> UpdateDAOSettings
+
+    %% Settings Full Tree
+    Settings --> ThemeToggle
+    Settings --> SecurityPrefs
+    Settings --> BackupWallet
+    Settings --> ViewLogs
+    Settings --> CLIGUIToggle
+
+    ThemeToggle --> ChooseDarkLight
+    ChooseDarkLight --> ApplyTheme
+
+    SecurityPrefs --> SetTimeout
+    SecurityPrefs --> EnableBiometrics
+    SecurityPrefs --> UpdateEncryption
+
+    BackupWallet --> ExportSeed
+    ExportSeed --> EncryptBackup
+    EncryptBackup --> SaveToFile
+
+    ViewLogs --> ChooseLogType
+    ChooseLogType --> DisplayLogs
+
+    CLIGUIToggle --> ToggleMode
+    ToggleMode --> RestartRequired

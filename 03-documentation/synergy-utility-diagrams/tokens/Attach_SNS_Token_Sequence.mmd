@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Attach SNS to Token'
+    Tool->>User: Select Token and SNS
+    User->>Tool: Confirm Link
+    Tool->>Tool: Update Token Metadata
+    Tool->>User: SNS Attached Successfully

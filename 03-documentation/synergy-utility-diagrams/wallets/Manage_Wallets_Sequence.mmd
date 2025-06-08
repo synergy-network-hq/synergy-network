@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Select 'Manage Wallets'
+    Tool->>User: Show wallet list
+    User->>Tool: Choose action (Rename/Delete/Set Default)
+    Tool->>User: Confirm action
+    User->>Tool: Approve
+    Tool->>Tool: Update config
+    Tool->>User: Action complete

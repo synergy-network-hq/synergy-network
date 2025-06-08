@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Submit Proposal'
+    Tool->>User: Enter Title and Details
+    User->>Tool: Set Voting Duration
+    Tool->>User: Confirm Submission
+    User->>Tool: Confirm
+    Tool->>Tool: Record Proposal On-Chain
+    Tool->>User: Proposal Submitted

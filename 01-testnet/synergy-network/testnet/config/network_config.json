@@ -1,0 +1,74 @@
+{
+  "network": {
+    "name": "Synergy Testnet",
+    "chainId": 13579,
+    "version": "0.1.0",
+    "consensusMechanism": "Proof of Synergy",
+    "blockTime": 2.5,
+    "maxTransactionsPerBlock": 5000,
+    "maxBlockSize": "5MB",
+    "initialValidators": 5,
+    "maxValidators": 100,
+    "initialClusters": 1,
+    "maxClusters": 20,
+    "clusterSize": {
+      "min": 3,
+      "max": 15,
+      "target": 10
+    }
+  },
+  "tokenomics": {
+    "symbol": "SYN",
+    "decimals": 18,
+    "totalSupply": "10000000000000000000000000000",
+    "initialCirculatingSupply": "2500000000000000000000000000",
+    "blockReward": "100000000000000000",
+    "minStake": "100000000000000000000",
+    "stakingAPY": 11
+  },
+  "consensus": {
+    "synergyPointsInitial": 1000,
+    "synergyPointsMax": 100000,
+    "taskPoolSize": 1000,
+    "taskAssignmentInterval": 60,
+    "clusterRotationInterval": 86400,
+    "pbftTimeout": 10,
+    "minClusterConsensus": 0.67
+  },
+  "cryptography": {
+    "signatureScheme": "Dilithium3",
+    "keyExchangeScheme": "Kyber",
+    "hashAlgorithm": "SHA3-256",
+    "addressPrefix": "sYnQ",
+    "addressPrefixTestnet": "sYnT"
+  },
+  "p2p": {
+    "bootstrapNodes": [
+      "syn-node1.testnet.synergy.network:30303",
+      "syn-node2.testnet.synergy.network:30303",
+      "syn-node3.testnet.synergy.network:30303"
+    ],
+    "maxPeers": 50,
+    "targetPeers": 25,
+    "connectionTimeout": 5000,
+    "pingInterval": 15000,
+    "discoveryEnabled": true
+  },
+  "rpc": {
+    "enabled": true,
+    "port": 8545,
+    "host": "127.0.0.1",
+    "cors": "*",
+    "apis": ["syn", "net", "web3"]
+  },
+  "websocket": {
+    "enabled": true,
+    "port": 8546,
+    "host": "127.0.0.1"
+  },
+  "explorer": {
+    "enabled": true,
+    "port": 8080,
+    "host": "127.0.0.1"
+  }
+}

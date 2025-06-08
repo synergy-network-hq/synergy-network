@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Select 'View Rewards'
+    Tool->>User: Choose Validator
+    User->>Tool: Confirm
+    Tool->>Tool: Query Rewards Ledger
+    Tool->>User: Display Available + Claimed Rewards

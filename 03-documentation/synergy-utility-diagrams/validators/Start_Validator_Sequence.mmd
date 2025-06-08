@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Select 'Start Validator'
+    Tool->>User: Choose Registered Node
+    User->>Tool: Confirm Start
+    Tool->>Tool: Initialize Node Process
+    Tool->>User: Validator Started + Status Info

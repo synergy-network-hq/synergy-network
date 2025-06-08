@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Open 'Security Preferences'
+    Tool->>User: List Settings (Timeout, Biometric, Encryption)
+    User->>Tool: Modify Settings
+    Tool->>Tool: Validate & Apply
+    Tool->>User: Show Confirmation

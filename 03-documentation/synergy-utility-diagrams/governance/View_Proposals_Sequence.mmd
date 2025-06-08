@@ -1,0 +1,9 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'View Proposals'
+    Tool->>Tool: Fetch All Proposals
+    Tool->>User: Display List
+    User->>Tool: Select Proposal
+    Tool->>Tool: Load Proposal Details
+    Tool->>User: Show Status, History, Outcome

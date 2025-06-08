@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>
+    Synergy Network Utility
+  </title>
+  <link href="styles.css" rel="stylesheet" />
+</head>
+
+<body style="margin: 3px;">
+  <div id="app" style=" margin: 3px">
+    <header>
+      <div class="navbar glass">
+        <img alt="Utility Logo" class="utility-logo" src="assets/utility_logo.png"
+          style="height: 32px; margin: 0 auto; display: block;" />
+        <div class="network-toggle" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%);">
+          <label class="toggle-label">
+            <span>
+              Testnet
+            </span>
+            <input checked="" disabled="" type="checkbox" />
+          </label>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="section active" id="dashboard">
+        <div class="function-section">
+          <div class="function-buttons">
+            <button class="function-button" id="nav-wallet-btn">
+              Wallet Functions
+            </button>
+            <button class="function-button" id="nav-tokens-btn">
+              Token Functions
+            </button>
+            <button class="function-button" id="nav-naming-btn">
+              SNS Functions
+            </button>
+            <button class="function-button" id="nav-uma-btn">
+              UMA Functions
+            </button>
+            <button class="function-button" id="nav-settings-btn">
+              Settings
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="wallet">
+        <button class="home-btn">Home</button>
+        <h2>
+          Wallet Management
+        </h2>
+        <div class="action-bar">
+          <button class="primary-btn" id="create-wallet-action">
+            Create Wallet
+          </button>
+          <button id="import-wallet-action">
+            Import Wallet
+          </button>
+          <button id="refresh-wallets-btn">
+            Refresh
+          </button>
+        </div>
+        <div class="wallet-list-container">
+          <h3>
+            Your Wallets
+          </h3>
+          <div class="list-container" id="wallet-list">
+            Loading wallets...
+          </div>
+          <p class="wallet-summary" id="wallet-summary">
+          </p>
+        </div>
+        <div class="details-container" id="wallet-details">
+          <h3>
+            Wallet Details
+          </h3>
+          <div class="details-content">
+            <p>
+              Select a wallet to view details
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="tokens">
+        <button class="home-btn">Home</button>
+        <h2>
+          Token Management
+        </h2>
+        <div class="action-bar">
+          <button class="primary-btn" id="create-token-action">
+            Create Token
+          </button>
+          <button id="refresh-tokens-btn">
+            Refresh
+          </button>
+        </div>
+        <div class="token-list-container">
+          <h3>
+            Your Tokens
+          </h3>
+          <div class="list-container" id="token-list">
+            Loading tokens...
+          </div>
+        </div>
+        <div class="details-container" id="token-details">
+          <h3>
+            Token Details
+          </h3>
+          <div class="details-content">
+            <p>
+              Select a token to view details
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="naming">
+        <button class="home-btn">Home</button>
+        <h2>
+          Synergy Naming System
+        </h2>
+        <div class="action-bar">
+          <div class="search-container">
+            <input id="domain-search" placeholder="Check domain availability..." type="text" />
+            <button id="check-domain-btn">
+              Check
+            </button>
+          </div>
+          <button id="refresh-domains-btn">
+            Refresh
+          </button>
+        </div>
+        <div class="domain-list-container">
+          <h3>
+            Your Domains
+          </h3>
+          <div class="list-container" id="domain-list">
+            Loading domains...
+          </div>
+        </div>
+        <div class="details-container" id="domain-details">
+          <h3>
+            Domain Details
+          </h3>
+          <div class="details-content">
+            <p>
+              Select a domain to view details
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="uma">
+        <button class="home-btn">Home</button>
+        <h2>
+          Universal Meta Address
+        </h2>
+        <div class="action-bar">
+          <button class="primary-btn" id="generate-uma-action">
+            Generate UMA
+          </button>
+          <button id="derive-address-action">
+            Derive Address
+          </button>
+          <button id="refresh-uma-btn">
+            Refresh
+          </button>
+        </div>
+        <div class="uma-list-container">
+          <h3>
+            Your UMAs
+          </h3>
+          <div class="list-container" id="uma-list">
+            Loading UMAs...
+          </div>
+        </div>
+        <div class="details-container" id="uma-details">
+          <h3>
+            UMA Details
+          </h3>
+          <div class="details-content">
+            <p>
+              Select a UMA to view details
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="settings">
+        <button class="home-btn">Home</button>
+        <h2>
+          Settings
+        </h2>
+        <div class="settings-grid">
+          <div class="card">
+            <h3>
+              Network Settings
+            </h3>
+            <div class="form-group">
+              <label for="network-select">
+                Active Network
+              </label>
+              <select id="network-select">
+                <option value="mainnet">
+                  Mainnet
+                </option>
+                <option selected="" value="testnet">
+                  Testnet
+                </option>
+                <option value="local">
+                  Local
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button class="primary-btn" id="save-network-settings">
+                Save Network Settings
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>
+              Appearance
+            </h3>
+            <div class="form-group">
+              <label for="theme-select">
+                Theme
+              </label>
+              <select id="theme-select">
+                <option value="light">
+                  Light
+                </option>
+                <option selected="" value="dark">
+                  Dark
+                </option>
+                <option value="system">
+                  System
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button class="primary-btn" id="save-appearance-settings">
+                Save Appearance Settings
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>
+              Advanced
+            </h3>
+            <div class="form-group">
+              <label for="data-dir">
+                Data Directory
+              </label>
+              <div class="input-with-button">
+                <input id="data-dir" readonly="" type="text" value="~/.synergy" />
+                <button id="browse-data-dir">
+                  Browse
+                </button>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="primary-btn" id="save-advanced-settings">
+                Save Advanced Settings
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>
+              Account
+            </h3>
+            <div class="form-group">
+              <button class="primary-btn" id="disconnect-wallet">
+                Disconnect Wallet
+              </button>
+            </div>
+            <div class="form-group">
+              <button class="primary-btn" id="sign-out">
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div class="modal-container hidden" id="modal-container">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modal-title">
+            Modal Title
+          </h3>
+          <button class="close-btn" id="modal-close">
+            ×
+          </button>
+        </div>
+        <div class="modal-content" id="modal-content">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="renderer.js">
+  </script>
+  <div class="floating-network-status glass" onclick="refreshNetworkStatus(this)">
+    <div class="status-content">
+      <div class="status-dot">
+      </div>
+      <div>
+        <div>
+          Network: TESTNET
+        </div>
+        <div>
+          Status: Online
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Link SNS to Wallet'
+    Tool->>User: Prompt for SNS and Wallet Address
+    User->>Tool: Enter Inputs
+    Tool->>Tool: Validate Ownership
+    Tool->>Tool: Update SNS Record
+    Tool->>User: Link Successful

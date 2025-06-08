@@ -1,0 +1,10 @@
+stateDiagram-v2
+    [*] --> Unregistered
+    Unregistered --> Pending: RegisterValidator()
+    Pending --> Active: StakeConfirmed + NodeOnline
+    Active --> Jailed: Inactivity | Misbehavior
+    Active --> VoluntarilyStopped: StopValidator()
+    Jailed --> Active: AppealSuccess
+    VoluntarilyStopped --> Active: RestartValidator()
+    Active --> Deregistered: WithdrawStake()
+    Jailed --> Deregistered: ExpulsionConfirmed

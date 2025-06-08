@@ -1,0 +1,42 @@
+{
+  "name": "synergy-network-utility",
+  "version": "1.0.0",
+  "description": "Synergy Network Wallet, Token, and Naming System Utility",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir"
+  },
+  "author": "Synergy Network",
+  "license": "MIT",
+  "dependencies": {
+    "electron-store": "^8.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.10.0",
+    "styled-components": "^5.3.9"
+  },
+  "devDependencies": {
+    "electron": "^24.0.0",
+    "electron-builder": "^23.6.0"
+  },
+  "build": {
+    "appId": "io.synergy-network.utility",
+    "productName": "Synergy Network Utility",
+    "mac": {
+      "icon": "./assets/syn.icns",
+      "category": "public.app-category.finance"
+    },
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Finance"
+    }
+  }
+}

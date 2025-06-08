@@ -1,0 +1,66 @@
+Implementation/
+├── __init__.py
+├── common
+│   ├── __init__.py
+│   └── config.py
+├── consensus
+│   ├── __init__.py
+│   ├── pbft_consensus.py
+│   ├── pbft_consensus.py.bak_from_impl
+│   ├── synergy_points.py
+│   ├── synergy_points.py.bak_from_impl
+│   ├── task_pool.py
+│   ├── task_pool.py.bak_from_impl
+│   ├── validator_cluster.py
+│   └── validator_cluster.py.bak_from_impl
+├── core
+│   ├── __init__.py
+│   ├── __init__.py.bak_from_impl
+│   ├── blockchain
+│   │   ├── __init__.py
+│   │   ├── __init__.py.bak_from_impl
+│   │   ├── block.py
+│   │   └── block.py.bak_from_impl
+│   ├── naming.py
+│   ├── network
+│   │   ├── __init__.py
+│   │   ├── __init__.py.bak_from_impl
+│   │   ├── p2p.py
+│   │   └── p2p.py.bak_from_impl
+│   ├── state
+│   │   ├── __init__.py
+│   │   ├── __init__.py.bak_from_impl
+│   │   ├── state.py
+│   │   └── state.py.bak_from_impl
+│   ├── token.py
+│   ├── transaction
+│   │   ├── __init__.py
+│   │   ├── __init__.py.bak_from_impl
+│   │   ├── transaction.py
+│   │   └── transaction.py.bak_from_impl
+│   └── wallet.py
+├── cryptography
+│   ├── __init__.py
+│   └── pqc
+│       ├── __init__.py
+│       ├── __init__.py.bak_from_impl
+│       ├── address.py
+│       ├── address.py.bak_from_impl
+│       ├── dilithium.py
+│       ├── dilithium.py.bak_from_impl
+│       ├── hash.py
+│       ├── hash.py.bak_from_impl
+│       ├── kyber.py
+│       └── kyber.py.bak_from_impl
+├── synergy_uma
+│   ├── __init__.py
+│   ├── chain_derivations.py
+│   ├── pq_keys.py
+│   └── sns_api.py
+└── utility
+    ├── core
+    │   ├── config.py
+    │   ├── naming.py
+    │   ├── token.py
+    │   └── wallet.py
+    └── setup.py

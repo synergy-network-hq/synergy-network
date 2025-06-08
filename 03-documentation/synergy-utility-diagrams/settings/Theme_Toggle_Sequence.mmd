@@ -1,0 +1,7 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Select 'Toggle Theme'
+    Tool->>Tool: Detect Current Theme
+    Tool->>Tool: Switch to Alternate (Dark/Light)
+    Tool->>User: Apply New Theme

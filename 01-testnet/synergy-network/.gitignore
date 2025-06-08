@@ -1,0 +1,154 @@
+# ============================
+# General Files to Ignore
+# ============================
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+debug.log
+lerna-debug.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Editor & OS-Specific Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.history/
+node_modules/
+dist/
+build/
+out/
+.cache/
+coverage/
+*.iml
+
+# ============================
+# Smart Contracts
+# ============================
+
+# Compiled Solidity contract artifacts
+artifacts/
+cache/
+typechain/
+typechain-types/
+contracts/*.dbg.json
+
+# Ethereum-related files
+*.rlp
+*.r1cs
+*.zkey
+*.ptau
+
+# Hardhat specific files
+hardhat.cache
+hardhat.config.ts
+hardhat.config.js
+
+# Truffle specific files
+build/
+migrations/
+
+# ============================
+# Node.js Backend
+# ============================
+
+# Dependency directories
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Compiled files
+*.tsbuildinfo
+*.swp
+*.swo
+.nyc_output/
+*.ts-node/
+.jest/
+
+# Prisma ORM
+prisma/migrations/
+prisma/dev.db
+
+# GraphQL generated files
+schema.graphql
+.graphqlrc
+.graphqlrc.json
+
+# ============================
+# Frontend (React, Next.js, Vue, etc.)
+# ============================
+
+# Build artifacts
+.next/
+.nuxt/
+out/
+.svelte-kit/
+public/
+.vercel/
+.netlify/
+
+# Static site builds
+docs/.vuepress/dist/
+docs/_book/
+*.cache
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# SvelteKit
+.svelte-kit/
+
+# ============================
+# Cryptographic Keys & Security
+# ============================
+
+# Private keys (DO NOT SHARE)
+*.key
+*.pem
+*.p12
+*.pfx
+.keystore
+
+# SSH files
+.ssh/
+*.pub
+
+# Wallet JSON files (e.g., Ethereum keystore)
+wallet.json
+keystore/
+
+# Private configuration files
+config/secrets.json
+config/private.json
+
+# IPFS related cache
+.ipfs/
+orbitdb/
+.datastore/
+.lock
+
+# Mac OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db 

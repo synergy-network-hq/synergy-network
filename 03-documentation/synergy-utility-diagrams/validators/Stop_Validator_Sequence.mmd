@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Stop Validator'
+    Tool->>User: Confirm Shutdown
+    User->>Tool: Confirm
+    Tool->>Tool: Halt Validator Process
+    Tool->>User: Validator Offline
