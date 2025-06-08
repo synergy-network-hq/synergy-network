@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Select 'View Wallet'
+    Tool->>User: Choose wallet (by SNS or address)
+    User->>Tool: Confirm selection
+    Tool->>Tool: Fetch public data
+    Tool->>User: Display balances, SNS, UMA, Synergy Score

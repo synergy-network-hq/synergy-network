@@ -1,0 +1,9 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'View UMA'
+    Tool->>User: Enter UMA or SNS Name
+    User->>Tool: Confirm Query
+    Tool->>Tool: Lookup UMA Record
+    Tool->>Tool: Resolve External Mappings (ETH, SOL, BTC)
+    Tool->>User: Display UMA Details

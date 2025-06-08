@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'View Token'
+    Tool->>User: Enter Token Address or Symbol
+    User->>Tool: Confirm Lookup
+    Tool->>Tool: Retrieve Metadata
+    Tool->>User: Display Token Info + History

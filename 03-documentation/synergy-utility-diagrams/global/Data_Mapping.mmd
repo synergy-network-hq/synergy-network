@@ -1,0 +1,10 @@
+graph TD
+    SNS[alice.syn] --> WalletAddr[sYnQ...]
+    SNS --> TokenContract[sYnQ-CONTRACT-...]
+    SNS --> UMA[uma:alice.syn]
+    UMA --> ETHAddr[0x...ETH]
+    UMA --> SOLAddr[So1...Sol]
+    UMA --> BTCAddr[1Btc...]
+    TokenContract --> MetadataIPFS[ipfs://...json]
+    WalletAddr --> PublicKey[Dilithium3 PubKey]
+    WalletAddr --> SynergyScore[Score Ledger]

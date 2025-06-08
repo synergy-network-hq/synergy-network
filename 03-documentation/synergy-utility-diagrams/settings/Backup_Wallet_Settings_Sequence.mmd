@@ -1,0 +1,9 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Backup Wallet'
+    Tool->>Tool: Collect Encrypted Wallet Data
+    Tool->>User: Prompt for Backup Location
+    User->>Tool: Choose File Path
+    Tool->>Tool: Save Backup File
+    Tool->>User: Backup Complete

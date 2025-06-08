@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant User
+    participant UtilityTool
+    participant Explorer
+    participant Chain
+
+    User->>UtilityTool: Submit Transaction Request
+    UtilityTool->>Chain: Sign & Broadcast TX
+    Chain-->>UtilityTool: Receipt
+    UtilityTool-->>User: TX Result
+
+    User->>Explorer: View Wallet/Contract
+    Explorer->>Chain: Query On-Chain Data
+    Chain-->>Explorer: Return State
+    Explorer-->>User: Show Explorer Data

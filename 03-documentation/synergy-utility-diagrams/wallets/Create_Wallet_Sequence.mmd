@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Click 'Create Wallet'
+    Tool->>User: Confirm creation intent
+    User->>Tool: Confirm Yes
+    Tool->>User: Prompt for secure passphrase
+    User->>Tool: Enter passphrase (x2)
+    Tool->>User: Prompt for PIN
+    User->>Tool: Enter PIN (x2)
+    Tool->>Tool: Generate 18-word seed phrase
+    Tool->>User: Display seed + warning
+    Tool->>User: Prompt SNS name
+    User->>Tool: Enter SNS (x2)
+    Tool->>Tool: Link SNS + UMA
+    Tool->>User: Show public info
+    User->>Tool: Confirm seed reentry
+    Tool->>User: Wallet created successfully

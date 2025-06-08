@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Link SNS to Token'
+    Tool->>User: Select Token + SNS
+    User->>Tool: Confirm Association
+    Tool->>Tool: Attach SNS to Token Metadata
+    Tool->>User: Token Successfully Linked

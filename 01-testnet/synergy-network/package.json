@@ -1,0 +1,35 @@
+{
+  "name": "synergy-network",
+  "version": "0.1.0",
+  "description": "A next-generation blockchain platform featuring Proof of Synergy consensus and Post-Quantum Cryptography",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm run install-testnet && npm run install-backend && npm run install-web",
+    "install-testnet": "cd testnet && npm install",
+    "install-backend": "cd backend && npm install",
+    "install-web": "cd web_portal && npm install",
+    "start-testnet": "cd testnet && node --openssl-legacy-provider scripts/start_node.js --testnet --data-dir ./data",
+    "test-testnet": "cd testnet && node scripts/test_node.js",
+    "start-backend": "cd backend && npm start",
+    "start-web": "cd web_portal && npm start",
+    "start-all": "concurrently \"npm run start-backend\" \"npm run start-web\"",
+    "test": "npm run test-testnet"
+  },
+  "keywords": [
+    "blockchain",
+    "cryptocurrency",
+    "consensus",
+    "proof-of-synergy",
+    "post-quantum-cryptography"
+  ],
+  "author": "Synergy Network Team",
+  "license": "MIT",
+  "dependencies": {
+    "@chakra-ui/react": "^3.13.0",
+    "concurrently": "^7.6.0",
+    "express": "^4.21.2",
+    "nvm": "^0.0.4",
+    "react-icons": "^5.5.0",
+    "ws": "^8.18.1"
+  }
+}

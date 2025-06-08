@@ -1,0 +1,23 @@
+0000000000000000000000000000000000000000 514944dc3130ea98da2d6e1d0871230e3f7fce29 Justin Hutzler <hootzluh@gmail.com> 1740062955 -0600	commit (initial): reorganized files
+514944dc3130ea98da2d6e1d0871230e3f7fce29 f454fd3ac5efcc6c49b0019eaba2a6bcb61e57c3 Justin Hutzler <jhutzler@Justins-Mac-mini.local> 1744180774 -0500	commit: working testnet files
+f454fd3ac5efcc6c49b0019eaba2a6bcb61e57c3 32ef45a35792b9c53be9a1d5ad7b4cb0b417dcec Justin Hutzler <hootzluh@gmail.com> 1744608547 -0500	commit: Removing Filleer Code
+32ef45a35792b9c53be9a1d5ad7b4cb0b417dcec d6c29d58967493939e92a4bdaccb5b5c177c1723 Justin Hutzler <hootzluh@gmail.com> 1744609226 -0500	commit (merge): Removing Filleer Code
+d6c29d58967493939e92a4bdaccb5b5c177c1723 8ded43def1d114ef8cde27b0ee0bb2a1fdfa92cb Justin Hutzler <hootzluh@gmail.com> 1744610520 -0500	commit: configuring testnet
+8ded43def1d114ef8cde27b0ee0bb2a1fdfa92cb f2058336962924b7cf2f2486f1996575c156be79 Justin Hutzler <hootzluh@gmail.com> 1744618997 -0500	commit: resolving errors
+f2058336962924b7cf2f2486f1996575c156be79 7fd1e68041d07ceaa34cd80063366265439ffe93 Justin Hutzler <hootzluh@gmail.com> 1744619425 -0500	commit: ✅ Synergy Testnet: functional build and successful live node startup
+7fd1e68041d07ceaa34cd80063366265439ffe93 a8b49d47c63c69b4f60e0e5d16c477af5adb08ed Justin Hutzler <hootzluh@gmail.com> 1744620812 -0500	commit: updates.
+a8b49d47c63c69b4f60e0e5d16c477af5adb08ed afb0359ced1cb8b464f5d512529a6b44cb6cc85b Justin Hutzler <hootzluh@gmail.com> 1744625241 -0500	commit: updates
+afb0359ced1cb8b464f5d512529a6b44cb6cc85b 807c9e9ce334ea6d1f179e6039b1aaec6c6b0f35 Justin Hutzler <hootzluh@gmail.com> 1744627518 -0500	commit: updates
+807c9e9ce334ea6d1f179e6039b1aaec6c6b0f35 8fe6ba870c28a36ac5847e216e65c914303dd3c4 Justin Hutzler <hootzluh@gmail.com> 1744645390 -0500	pull: Fast-forward
+8fe6ba870c28a36ac5847e216e65c914303dd3c4 8fe8f6db7e0690b81adb4b2dbcda1a6fe0cf84f8 Justin Hutzler <hootzluh@gmail.com> 1744647431 -0500	commit: .
+8fe8f6db7e0690b81adb4b2dbcda1a6fe0cf84f8 496302d633b4953ffeceaaf88f11751241cfa800 Justin Hutzler <hootzluh@gmail.com> 1744650047 -0500	commit: .
+496302d633b4953ffeceaaf88f11751241cfa800 645e30b1cc2faff610b92aba643b5a10d48d266c Justin Hutzler <hootzluh@gmail.com> 1744661358 -0500	commit: .
+645e30b1cc2faff610b92aba643b5a10d48d266c 624ff1c9977cce0e90fd7da140d948c36a772492 Justin Hutzler <hootzluh@gmail.com> 1744662482 -0500	commit: .
+624ff1c9977cce0e90fd7da140d948c36a772492 719fa32edadbfa6e58b15a4fbe57a647fd7a9340 Justin Hutzler <hootzluh@gmail.com> 1745217234 -0500	commit: updating files
+719fa32edadbfa6e58b15a4fbe57a647fd7a9340 4e6996591829f20d9cf5f6f3ad60aba259ccf8de Justin Hutzler <hootzluh@gmail.com> 1745414325 -0500	commit: removing stub code
+4e6996591829f20d9cf5f6f3ad60aba259ccf8de 1c5e0a18781842aee041aa2f2b0049c8c1a41ac2 Justin Hutzler <hootzluh@gmail.com> 1745414454 -0500	commit: modifying files
+1c5e0a18781842aee041aa2f2b0049c8c1a41ac2 9885da9f8e7e52095dcb431c823024c9f43c7f8f Justin Hutzler <hootzluh@gmail.com> 1746987584 -0500	commit: removing filler code
+9885da9f8e7e52095dcb431c823024c9f43c7f8f 2d0a1305fe32e392b673eb19b3be6c4365d41547 Justin Hutzler <hootzluh@gmail.com> 1746991334 -0500	commit: removing filler code
+2d0a1305fe32e392b673eb19b3be6c4365d41547 b32aaa7b5cde4f7011b20326e5adb47279ed02e6 Justin Hutzler <hootzluh@gmail.com> 1747123409 -0500	commit: updating testnet
+b32aaa7b5cde4f7011b20326e5adb47279ed02e6 c66d6b95dbfc4d7ef5657bece340abe86a509053 Justin Hutzler <hootzluh@gmail.com> 1747128968 -0500	commit: updated the testnet
+c66d6b95dbfc4d7ef5657bece340abe86a509053 511a516f091ed0adaad9e2a63134d9bd3ef054c9 Justin Hutzler <hootzluh@gmail.com> 1748700706 -0500	commit: migrating to Genesys Node

@@ -1,0 +1,9 @@
+graph TD
+    A[User Inputs Passphrase + PIN] --> B[Validate Format & Strength]
+    B --> C[Derive Encryption Key]
+    C --> D[Encrypt Seed Phrase]
+    D --> E[Store Locally - Encrypted]
+    E --> F[Ask for Confirmation of Seed Reentry]
+    F --> G{Match?}
+    G -->|Yes| H[Finalize Wallet Setup]
+    G -->|No| I[Re-prompt User or Abort]

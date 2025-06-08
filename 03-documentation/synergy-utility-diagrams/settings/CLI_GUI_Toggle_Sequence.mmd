@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Switch CLI/GUI Mode'
+    Tool->>Tool: Toggle UI Mode Setting
+    Tool->>User: Notify Restart Required
+    User->>Tool: Restart Confirmed
+    Tool->>Tool: Reload in Selected Mode

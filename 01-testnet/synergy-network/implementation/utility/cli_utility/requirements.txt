@@ -1,0 +1,8 @@
+argparse>=1.4.0
+cmd2>=2.0.0
+typing
+pqcrypto>=1.0
+pycryptodome>=3.10
+eth_account>=0.5  # for Ethereum
+solana>=0.20      # for Solana
+tronpy>=0.2       # for Tron

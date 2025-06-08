@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant User
+    participant Tool
+    User->>Tool: Choose 'Burn Token'
+    Tool->>User: Select Token
+    User->>Tool: Enter Burn Amount
+    Tool->>User: Confirm Burn
+    User->>Tool: Confirm
+    Tool->>Tool: Burn Tokens
+    Tool->>User: Show Result

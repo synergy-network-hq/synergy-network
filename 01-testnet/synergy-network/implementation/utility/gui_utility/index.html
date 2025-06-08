@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synergy Network Utility</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="logo">
+        <img src="assets/syn.png" alt="Synergy Network Logo" id="logo">
+        <h1>Synergy Network Utility</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" class="nav-link active" data-section="dashboard">Dashboard</a></li>
+          <li><a href="#" class="nav-link" data-section="wallet">Wallet</a></li>
+          <li><a href="#" class="nav-link" data-section="tokens">Tokens</a></li>
+          <li><a href="#" class="nav-link" data-section="naming">Naming System</a></li>
+          <li><a href="#" class="nav-link" data-section="settings">Settings</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Dashboard Section -->
+      <section id="dashboard" class="section active">
+        <h2>Dashboard</h2>
+        <div class="dashboard-grid">
+          <div class="card">
+            <h3>Wallet Summary</h3>
+            <div id="wallet-summary">Loading...</div>
+          </div>
+          <div class="card">
+            <h3>Token Summary</h3>
+            <div id="token-summary">Loading...</div>
+          </div>
+          <div class="card">
+            <h3>Domain Summary</h3>
+            <div id="domain-summary">Loading...</div>
+          </div>
+          <div class="card">
+            <h3>Network Status</h3>
+            <div id="network-status">
+              <p>Network: <span id="current-network">Testnet</span></p>
+              <p>Status: <span class="status-indicator online">Online</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Wallet Section -->
+      <section id="wallet" class="section">
+        <h2>Wallet Management</h2>
+        <div class="action-bar">
+          <button id="create-wallet-btn" class="primary-btn">Create Wallet</button>
+          <button id="import-wallet-btn">Import Wallet</button>
+          <button id="refresh-wallets-btn">Refresh</button>
+        </div>
+        <div class="wallet-list-container">
+          <h3>Your Wallets</h3>
+          <div id="wallet-list" class="list-container">
+            Loading wallets...
+          </div>
+        </div>
+        <div id="wallet-details" class="details-container">
+          <h3>Wallet Details</h3>
+          <div class="details-content">
+            <p>Select a wallet to view details</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tokens Section -->
+      <section id="tokens" class="section">
+        <h2>Token Management</h2>
+        <div class="action-bar">
+          <button id="create-token-btn" class="primary-btn">Create Token</button>
+          <button id="refresh-tokens-btn">Refresh</button>
+        </div>
+        <div class="token-list-container">
+          <h3>Your Tokens</h3>
+          <div id="token-list" class="list-container">
+            Loading tokens...
+          </div>
+        </div>
+        <div id="token-details" class="details-container">
+          <h3>Token Details</h3>
+          <div class="details-content">
+            <p>Select a token to view details</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Naming System Section -->
+      <section id="naming" class="section">
+        <h2>Synergy Naming System</h2>
+        <div class="action-bar">
+          <div class="search-container">
+            <input type="text" id="domain-search" placeholder="Check domain availability...">
+            <button id="check-domain-btn">Check</button>
+          </div>
+          <button id="refresh-domains-btn">Refresh</button>
+        </div>
+        <div class="domain-list-container">
+          <h3>Your Domains</h3>
+          <div id="domain-list" class="list-container">
+            Loading domains...
+          </div>
+        </div>
+        <div id="domain-details" class="details-container">
+          <h3>Domain Details</h3>
+          <div class="details-content">
+            <p>Select a domain to view details</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Section -->
+      <section id="settings" class="section">
+        <h2>Settings</h2>
+        <div class="settings-grid">
+          <div class="card">
+            <h3>Network Settings</h3>
+            <div class="form-group">
+              <label for="network-select">Active Network</label>
+              <select id="network-select">
+                <option value="mainnet">Mainnet</option>
+                <option value="testnet" selected>Testnet</option>
+                <option value="local">Local</option>
+              </select>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Appearance</h3>
+            <div class="form-group">
+              <label for="theme-select">Theme</label>
+              <select id="theme-select">
+                <option value="light">Light</option>
+                <option value="dark" selected>Dark</option>
+                <option value="system">System</option>
+              </select>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Advanced</h3>
+            <div class="form-group">
+              <label for="data-dir">Data Directory</label>
+              <div class="input-with-button">
+                <input type="text" id="data-dir" readonly value="~/.synergy">
+                <button id="browse-data-dir">Browse</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal Templates -->
+    <div id="modal-container" class="modal-container hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modal-title">Modal Title</h3>
+          <button id="modal-close" class="close-btn">&times;</button>
+        </div>
+        <div id="modal-content" class="modal-content">
+          <!-- Modal content will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
