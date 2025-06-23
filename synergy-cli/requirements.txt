@@ -1,0 +1,6 @@
+click
+bip-utils
+bech32
+eth-account
+solana
+cryptography
