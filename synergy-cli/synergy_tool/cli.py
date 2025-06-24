@@ -7,7 +7,7 @@ def cli():
     """Synergy Network Utility Tool"""
 
 
-@cli.group()
+@cli.group(name="wallet")
 def wallet_cmd():
     """Wallet operations"""
 
@@ -32,7 +32,7 @@ def wallet_address(path, password):
     click.echo(f"SOL: {wallet.sol_address(info['mnemonic'])}")
 
 
-@cli.group()
+@cli.group(name="sns")
 def sns_cmd():
     """SNS operations"""
 
@@ -57,7 +57,7 @@ def sns_resolve(name):
         click.echo("Name not found")
 
 
-@cli.group()
+@cli.group(name="token")
 def token_cmd():
     """Token operations"""
 
@@ -97,7 +97,7 @@ def token_info(symbol):
         click.echo("Token not found")
 
 
-@cli.group()
+@cli.group(name="uma")
 def uma_cmd():
     """UMA operations"""
 
@@ -116,7 +116,7 @@ def uma_parse(uma_str):
     click.echo(f"prefix={prefix} address={addr}")
 
 
-@cli.group()
+@cli.group(name="cross")
 def cross_cmd():
     """Cross-chain operations"""
 
