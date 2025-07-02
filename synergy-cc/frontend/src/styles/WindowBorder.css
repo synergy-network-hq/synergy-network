@@ -1,0 +1,15 @@
+.window-border {
+  /* Fill window, but inset for border */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 99.5vw;
+  height: 99.2vh;
+
+  /* Solid border - change color, thickness, and radius as you wish */
+  border: 3px solid #fff;
+  border-radius: 8px;
+  z-index: -66;
+  background-color: rgba(0, 0, 0, 0);
+
+}

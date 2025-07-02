@@ -1,0 +1,19 @@
+{
+  "name": "synergy-cc",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "react-dev": "cd frontend && npm run dev",
+    "electron": "electron .",
+    "dev": "concurrently \"npm run react-dev\" \"wait-on http://localhost:5173 && npm run electron\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "electron": "^36.5.0",
+    "wait-on": "^8.0.3"
+  }
+}

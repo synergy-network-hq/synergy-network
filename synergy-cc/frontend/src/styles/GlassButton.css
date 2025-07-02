@@ -1,0 +1,38 @@
+.glass-btn {
+  width: 130px;
+  height: 48px;
+  margin: 16px 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.13);
+  border-radius: 16px;
+  color: #fff;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(12px) saturate(180%);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.13);
+  opacity: 0.78;
+  transition:
+    background 0.22s,
+    color 0.22s,
+    box-shadow 0.25s,
+    transform 0.09s,
+    opacity 0.13s;
+  -webkit-app-region: no-drag;
+  outline: none;
+}
+
+.glass-btn:hover {
+  background: rgba(100, 200, 255, 0.17);
+  color: #b3e4ff;
+  opacity: 1;
+  box-shadow: 0 0 18px 6px rgba(80, 180, 255, 0.22), 0 4px 24px 0 rgba(0, 0, 0, 0.17);
+}
+
+.glass-btn:active {
+  background: rgba(55, 90, 255, 0.28);
+  color: #fff;
+  transform: scale(0.97);
+}

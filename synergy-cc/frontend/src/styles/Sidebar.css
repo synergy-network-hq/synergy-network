@@ -1,0 +1,17 @@
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  /* Adjust width as needed */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  z-index: 20;
+  padding-top: 72px;
+  /* Space for custom title bar, if needed */
+  box-sizing: border-box;
+  /* -webkit-app-region: drag;  Uncomment if you want sidebar to be draggable */
+}
