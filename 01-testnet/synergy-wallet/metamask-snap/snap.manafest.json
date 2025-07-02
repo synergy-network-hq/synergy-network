@@ -1,0 +1,22 @@
+{
+  "version": "0.1.0",
+  "proposedName": "Synergy Snap",
+  "description": "Quantum-safe Synergy Network wallet for MetaMask.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/synergy-network/synergy-snap"
+  },
+  "source": {
+    "shasum": "abcdef1234567890abcdef1234567890abcdef12",
+    "location": {
+      "npm": "@synergy-network/synergy-snap"
+    }
+  },
+  "initialPermissions": {
+    "endowment:rpc": {
+      "dapps": true,
+      "snaps": true
+    }
+  },
+  "manifestVersion": "0.1"
+}

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "markdown-it-mdc": "^0.2.6"
+  },
+  "devDependencies": {
+    "remark-mdc": "^3.6.0"
+  }
+}
