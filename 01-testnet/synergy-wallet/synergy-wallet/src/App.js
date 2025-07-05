@@ -1,11 +1,11 @@
 import React from "react";
-import WalletCreate from "./components/WalletCreate";
+import PQCWallet from "./components/PQCWallet";
 
 function App() {
   return (
     <div>
       <h1>Synergy Wallet PQC Test</h1>
-      <WalletCreate />
+      <PQCWallet />
     </div>
   );
 }
