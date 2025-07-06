@@ -1,11 +1,17 @@
 import React from "react";
-import PQCWallet from "./components/PQCWallet";
+import Sidebar from "./components/Sidebar";
+import MainContent from "./components/MainContent";
+import "./App.css";
 
 function App() {
   return (
     <div>
-      <h1>Synergy Wallet PQC Test</h1>
-      <PQCWallet />
+      <img id="backgroundGif" src="rainbow.gif" alt="Rainbow Background" />
+      <div id="overlay"></div>
+      <div className="container">
+        <Sidebar />
+        <MainContent />
+      </div>
     </div>
   );
 }

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { initDilithium } from '../pqc/dilithium';
 import { toHex, fromHex } from '../utils/hexUtils';
+import { pubkeyToSynergyAddress } from '../utils/synergyAddress';
 
 export default function PQCWallet() {
   const [dilithium, setDilithium] = useState(null);
   const [publicKey, setPublicKey] = useState('');
   const [secretKey, setSecretKey] = useState('');
+  const [address, setAddress] = useState('');
   const [message, setMessage] = useState('');
   const [signature, setSignature] = useState('');
   const [verifyResult, setVerifyResult] = useState('');
@@ -22,6 +24,8 @@ export default function PQCWallet() {
     const { publicKey, secretKey } = await dilithium.keypair();
     setPublicKey(toHex(publicKey));
     setSecretKey(toHex(secretKey));
+    const addr = await pubkeyToSynergyAddress(publicKey);
+    setAddress(addr);
     setSignature('');
     setVerifyResult('');
   };
@@ -56,6 +60,8 @@ export default function PQCWallet() {
           <textarea value={publicKey} readOnly rows={3} cols={80} />
           <h3>Secret Key:</h3>
           <textarea value={secretKey} readOnly rows={5} cols={90} />
+          <h3>Synergy Address:</h3>
+          <input type="text" value={address} readOnly style={{ width: 400 }} />
         </div>
       )}
       <div style={{ marginTop: 30 }}>

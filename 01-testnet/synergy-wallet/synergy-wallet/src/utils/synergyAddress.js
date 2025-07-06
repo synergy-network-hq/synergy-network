@@ -1,9 +1,11 @@
 import { bech32m } from 'bech32';
+import sha3 from 'js-sha3';
+const { sha3_256 } = sha3;
 
-const PREFIXES = ['sYnQ', 'sYnW', 'sYnZ', 'sYnX'];
+const PREFIXES = ['sYnQ', 'sYnU', 'sYnX', 'sYnZ'];
 
-function sha256(buf) {
-  return window.crypto.subtle.digest('SHA-256', buf);
+function hashSha3(buf) {
+  return new Uint8Array(sha3_256.arrayBuffer(buf));
 }
 
 function randomPrefix() {
@@ -15,7 +17,11 @@ function randomPrefix() {
 export async function pubkeyToSynergyAddress(pubkey, prefix) {
   // If no prefix specified, pick random
   const chosenPrefix = prefix || randomPrefix();
-  const hash = await sha256(pubkey);
-  const words = bech32m.toWords(new Uint8Array(hash));
-  return bech32m.encode(chosenPrefix, words);
+  const hash = hashSha3(pubkey);
+  // Use first 18 bytes so address stays around 40 chars
+  const truncated = hash.subarray(0, 18);
+  const words = bech32m.toWords(truncated);
+  // Encode with lowercase prefix then swap prefix case
+  const encoded = bech32m.encode(chosenPrefix.toLowerCase(), words);
+  return chosenPrefix + encoded.slice(chosenPrefix.length);
 }
