@@ -11,6 +11,7 @@ export default function PQCWallet() {
   const [message, setMessage] = useState('');
   const [signature, setSignature] = useState('');
   const [verifyResult, setVerifyResult] = useState('');
+  const [tokens, setTokens] = useState({});
 
   React.useEffect(() => {
     (async () => {
@@ -26,6 +27,7 @@ export default function PQCWallet() {
     setSecretKey(toHex(secretKey));
     const addr = await pubkeyToSynergyAddress(publicKey);
     setAddress(addr);
+    refreshTokens(addr);
     setSignature('');
     setVerifyResult('');
   };
@@ -49,6 +51,16 @@ export default function PQCWallet() {
     setVerifyResult(valid ? '✅ Signature valid!' : '❌ Invalid signature');
   };
 
+  const refreshTokens = async (addr = address) => {
+    if (!addr) return;
+    try {
+      const data = await fetch('/token_ledger.json').then(r => r.json());
+      setTokens(data[addr] || {});
+    } catch (e) {
+      setTokens({});
+    }
+  };
+
   return (
     <div style={{ maxWidth: 800, margin: '40px auto', fontFamily: 'monospace' }}>
       <h1>Synergy Wallet PQC Test</h1>
@@ -62,6 +74,19 @@ export default function PQCWallet() {
           <textarea value={secretKey} readOnly rows={5} cols={90} />
           <h3>Synergy Address:</h3>
           <input type="text" value={address} readOnly style={{ width: 400 }} />
+          <button onClick={() => refreshTokens()}>Refresh Tokens</button>
+          {Object.keys(tokens).length > 0 ? (
+            <div>
+              <h3>Token Balances:</h3>
+              <ul>
+                {Object.entries(tokens).map(([sym, amt]) => (
+                  <li key={sym}>{sym}: {amt}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <p>No tokens</p>
+          )}
         </div>
       )}
       <div style={{ marginTop: 30 }}>

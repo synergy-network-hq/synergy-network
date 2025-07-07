@@ -1,3 +1,15 @@
+// Polyfill for globalThis if not available
+if (typeof globalThis === 'undefined') {
+    // eslint-disable-next-line no-undef
+    var globalThis = (function () {
+        // eslint-disable-next-line no-restricted-globals
+                if (typeof self !== 'undefined' && typeof window === 'undefined') { return self; }
+        if (typeof window !== 'undefined') { return window; }
+        if (typeof global !== 'undefined') { return global; }
+        throw new Error('cannot find global object');
+    })();
+}
+
 var DilithiumModule = (() => {
     return async function (moduleArg = {}) {
         var moduleRtn;
@@ -19,10 +31,10 @@ var DilithiumModule = (() => {
         if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
             try {
                 scriptDirectory = new URL(".", _scriptName).href;
-            } catch {}
+            } catch { }
             {
                 readAsync = async (url) => {
-                    var response = await fetch(url, {credentials: "same-origin"});
+                    var response = await fetch(url, { credentials: "same-origin" });
                     if (response.ok) {
                         return response.arrayBuffer();
                     }
@@ -123,7 +135,7 @@ var DilithiumModule = (() => {
                 try {
                     var response = await readAsync(binaryFile);
                     return new Uint8Array(response);
-                } catch {}
+                } catch { }
             }
             return getBinarySync(binaryFile);
         }
@@ -140,7 +152,7 @@ var DilithiumModule = (() => {
         async function instantiateAsync(binary, binaryFile, imports) {
             if (!binary && typeof WebAssembly.instantiateStreaming == "function") {
                 try {
-                    var response = fetch(binaryFile, {credentials: "same-origin"});
+                    var response = fetch(binaryFile, { credentials: "same-origin" });
                     var instantiationResult = await WebAssembly.instantiateStreaming(response, imports);
                     return instantiationResult;
                 } catch (reason) {
@@ -151,7 +163,7 @@ var DilithiumModule = (() => {
             return instantiateArrayBuffer(binaryFile, imports);
         }
         function getWasmImports() {
-            return {a: wasmImports};
+            return { a: wasmImports };
         }
         async function createWasm() {
             function receiveInstance(instance, module) {
@@ -221,8 +233,8 @@ var DilithiumModule = (() => {
         var noExitRuntime = true;
         // Polyfill for BigInt if not available
         let toBigInt;
-        if (typeof BigInt === "function") {
-            toBigInt = (v) => BigInt(v);
+        if (typeof globalThis.BigInt === "function") {
+            toBigInt = (v) => globalThis.BigInt(v);
         } else {
             toBigInt = (v) => Number(v); // fallback: may lose precision
         }
@@ -272,10 +284,10 @@ var DilithiumModule = (() => {
                     ch == 112
                         ? HEAPU32[buf >> 2]
                         : ch == 106
-                        ? HEAP64[buf >> 3]
-                        : ch == 105
-                        ? HEAP32[buf >> 2]
-                        : HEAPF64[buf >> 3]
+                            ? HEAP64[buf >> 3]
+                            : ch == 105
+                                ? HEAP32[buf >> 2]
+                                : HEAPF64[buf >> 3]
                 );
                 buf += wide ? 8 : 4;
             }
@@ -295,7 +307,7 @@ var DilithiumModule = (() => {
                 wasmMemory.grow(pages);
                 updateMemoryViews();
                 return 1;
-            } catch (e) {}
+            } catch (e) { }
         };
         var _emscripten_resize_heap = (requestedSize) => {
             var oldSize = HEAPU8.length;
@@ -502,7 +514,7 @@ var DilithiumModule = (() => {
             __emscripten_stack_alloc = wasmExports["k"];
             _emscripten_stack_get_current = wasmExports["l"];
         }
-        var wasmImports = {b: _emscripten_asm_const_int, a: _emscripten_resize_heap};
+        var wasmImports = { b: _emscripten_asm_const_int, a: _emscripten_resize_heap };
         var wasmExports = await createWasm();
         function run() {
             if (runDependencies > 0) {

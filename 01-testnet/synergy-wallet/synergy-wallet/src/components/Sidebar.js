@@ -21,8 +21,8 @@ export default function Sidebar() {
           ))}
           <hr></hr>
       </div>
-      <div class="sidebar-footer">
-        <button class="button">Logout</button>
+      <div className="sidebar-footer">
+        <button className="button">Logout</button>
         <p>Version 1.0.0</p>
         <p>&copy; 2025 Synergy Network</p>
       </div>
