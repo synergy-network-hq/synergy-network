@@ -3,7 +3,7 @@ if (typeof globalThis === 'undefined') {
     // eslint-disable-next-line no-undef
     var globalThis = (function () {
         // eslint-disable-next-line no-restricted-globals
-                if (typeof self !== 'undefined' && typeof window === 'undefined') { return self; }
+        if (typeof self !== 'undefined' && typeof window === 'undefined') { return self; }
         if (typeof window !== 'undefined') { return window; }
         if (typeof global !== 'undefined') { return global; }
         throw new Error('cannot find global object');
@@ -21,12 +21,20 @@ var DilithiumModule = (() => {
         var thisProgram = "./this.program";
         var _scriptName = import.meta.url;
         var scriptDirectory = "";
+
+        // ********* FORCE LOAD FROM /pqc/dilithium_wasm.wasm *********
         function locateFile(path) {
+            // Always load WASM from /pqc/dilithium_wasm.wasm at site root (public)
+            if (path.endsWith('.wasm')) {
+                return '/pqc/dilithium_wasm.wasm';
+            }
             if (Module["locateFile"]) {
                 return Module["locateFile"](path, scriptDirectory);
             }
             return scriptDirectory + path;
         }
+        // *************************************************************
+
         var readAsync, readBinary;
         if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
             try {
@@ -116,10 +124,8 @@ var DilithiumModule = (() => {
         }
         var wasmBinaryFile;
         function findWasmBinary() {
-            if (Module["locateFile"]) {
-                return locateFile("dilithium_wasm.wasm");
-            }
-            return new URL("dilithium_wasm.wasm", import.meta.url).href;
+            // Always return the hard-coded public path for the WASM file
+            return '/pqc/dilithium_wasm.wasm';
         }
         function getBinarySync(file) {
             if (file == wasmBinaryFile && wasmBinary) {

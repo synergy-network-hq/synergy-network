@@ -1,0 +1,45 @@
+.
+├── backend
+│   ├── app.py
+│   └── requirements.txt
+├── bg.html
+├── .env
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── project-tree.txt
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── pqc
+│   ├── pqc.py
+│   ├── rainbow.gif
+│   ├── synergy_logo.png
+│   └── token_ledger.json
+├── README.md
+├── requirements-pyodide.txt
+└── src
+    ├── api
+    │   └── pqcCrypto.js
+    ├── App.css
+    ├── App.js
+    ├── assets
+    ├── components
+    │   ├── logo.png
+    │   ├── MainContent.js
+    │   ├── PQCWallet.js
+    │   ├── Section.js
+    │   └── Sidebar.js
+    ├── index.js
+    ├── pqc
+    │   ├── dilithium.js
+    │   ├── dilithium_wasm.js
+    │   └── dilithium_wasm.wasm
+    ├── styles
+    │   └── main.css
+    └── utils
+        ├── hexUtils.js
+        └── synergyAddress.js
+
+11 directories, 32 files
