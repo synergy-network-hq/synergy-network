@@ -8,6 +8,7 @@ import App from "./App";
 import "./styles/index.css";
 import "./styles/parallax.css";
 import "./styles/glassmorphism.css";
+import "./styles/button.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

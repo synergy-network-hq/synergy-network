@@ -39,7 +39,7 @@ const theme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        bg: props.colorMode === 'dark' ? '#121212' : '#f8fafc',
+        bg: 'linear-gradient(75deg, #000000, #0c0518, #0e051d)',
         color: props.colorMode === 'dark' ? 'gray.100' : 'gray.800',
       },
     }),

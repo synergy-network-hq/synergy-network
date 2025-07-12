@@ -4,7 +4,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #1a1a1a;
+  background: linear-gradient(75deg, #000000, #0c0518, #0e051d);
   color: #e5e5e5;
   font-family: 'Inter', sans-serif;
   overflow: auto;
