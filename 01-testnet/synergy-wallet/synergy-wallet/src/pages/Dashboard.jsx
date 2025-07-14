@@ -36,12 +36,53 @@ export default function Dashboard({ wallet, onLogout }) {
                 title="Copy address"
                 onClick={() => navigator.clipboard.writeText(wallet?.synergyAddress)}
               >
-                {/* SVG clipboard icon (Material/Feather/Lucide style) */}
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#ccc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                   <path d="M5 15V5a2 2 0 0 1 2-2h10" />
                 </svg>
               </button>
+            </div>
+          </div>
+          <div className="field" style={{ marginBottom: 12 }}>
+            <strong>Bitcoin Address:</strong>
+            <div className="address-box" style={{
+              background: "#241133",
+              borderRadius: 8,
+              padding: "7px 14px",
+              fontSize: 16,
+              fontFamily: "monospace",
+              marginTop: 6,
+              maxWidth: 480
+            }}>
+              {wallet?.bitcoinAddress}
+            </div>
+          </div>
+          <div className="field" style={{ marginBottom: 12 }}>
+            <strong>Ethereum Address:</strong>
+            <div className="address-box" style={{
+              background: "#241133",
+              borderRadius: 8,
+              padding: "7px 14px",
+              fontSize: 16,
+              fontFamily: "monospace",
+              marginTop: 6,
+              maxWidth: 480
+            }}>
+              {wallet?.ethereumAddress}
+            </div>
+          </div>
+          <div className="field" style={{ marginBottom: 12 }}>
+            <strong>Solana Address:</strong>
+            <div className="address-box" style={{
+              background: "#241133",
+              borderRadius: 8,
+              padding: "7px 14px",
+              fontSize: 16,
+              fontFamily: "monospace",
+              marginTop: 6,
+              maxWidth: 480
+            }}>
+              {wallet?.solanaAddress}
             </div>
           </div>
           <div className="field" style={{ marginBottom: 24 }}>
@@ -56,7 +97,7 @@ export default function Dashboard({ wallet, onLogout }) {
               maxHeight: 80,
               overflow: "auto"
             }}>
-              {wallet?.publicKey}
+              {wallet?.pqcPublicKey}
             </div>
           </div>
         </section>

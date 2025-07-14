@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
-import CreateWalletWizard from "./modals/CreateWalletWizard";
-import ImportWalletWizard from "./modals/ImportWalletWizard";
+import UmaWalletWizard from "./modals/umaWalletWizard";
 import "./styles/global.css";
 
 function App() {
@@ -11,22 +10,14 @@ function App() {
     const stored = localStorage.getItem("synergyWallet");
     return stored ? JSON.parse(stored) : null;
   });
-  console.log("Loaded wallet from storage:", wallet);
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showImportModal, setShowImportModal] = useState(false);
+  const [showWizard, setShowWizard] = useState(false);
 
-  // Handler for login actions
-  const handleLoginAction = (action) => {
-    if (action === "create") setShowCreateModal(true);
-    if (action === "import") setShowImportModal(true);
-  };
+  const handleLoginAction = () => setShowWizard(true);
 
-  // Handler for wallet creation/import
   const handleWalletReady = (walletObj) => {
     setWallet(walletObj);
     localStorage.setItem("synergyWallet", JSON.stringify(walletObj));
-    setShowCreateModal(false);
-    setShowImportModal(false);
+    setShowWizard(false);
   };
 
   const handleLogout = () => {
@@ -46,38 +37,20 @@ function App() {
                 onAction={handleLoginAction}
                 onWalletCreatedOrImported={handleWalletReady}
               />
-              {showCreateModal && (
-                <CreateWalletWizard
-                  open={showCreateModal}
-                  onClose={() => setShowCreateModal(false)}
-                  onComplete={handleWalletReady}
-                />
-              )}
-              {showImportModal && (
-                <ImportWalletWizard
-                  open={showImportModal}
-                  onClose={() => setShowImportModal(false)}
-                  onComplete={handleWalletReady}
-                />
-              )}
+              <UmaWalletWizard
+                isOpen={showWizard}
+                onClose={() => setShowWizard(false)}
+                onWalletCreated={handleWalletReady}
+              />
             </>
           ) : (
             <>
               <Dashboard wallet={wallet} />
-              {showCreateModal && (
-                <CreateWalletWizard
-                  open={showCreateModal}
-                  onClose={() => setShowCreateModal(false)}
-                  onComplete={handleWalletReady}
-                />
-              )}
-              {showImportModal && (
-                <ImportWalletWizard
-                  open={showImportModal}
-                  onClose={() => setShowImportModal(false)}
-                  onComplete={handleWalletReady}
-                />
-              )}
+              <UmaWalletWizard
+                isOpen={showWizard}
+                onClose={() => setShowWizard(false)}
+                onWalletCreated={handleWalletReady}
+              />
             </>
           )}
         </div>

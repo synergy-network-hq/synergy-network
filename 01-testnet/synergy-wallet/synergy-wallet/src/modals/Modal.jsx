@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
-// For accessibility: trap focus inside modal
 function useFocusTrap(ref, isOpen) {
   useEffect(() => {
     if (!isOpen || !ref.current) return;
@@ -36,12 +35,12 @@ export default function Modal({
   onClose,
   title,
   children,
-  width = 480,
+  width = 540,
+  height = 640,
   hideClose = false,
 }) {
   const modalRef = useRef(null);
 
-  // Close on ESC key
   useEffect(() => {
     if (!isOpen) return;
     function handleEsc(e) {
@@ -57,33 +56,28 @@ export default function Modal({
 
   const modalJSX = (
     <div
-      className="modal-overlay synergy-modal-overlay"
+      className="synergy-modal-overlay"
       onClick={onClose}
       tabIndex={-1}
       aria-modal="true"
       role="dialog"
     >
       <div
-        className="modal synergy-modal"
+        className="synergy-modal"
         ref={modalRef}
         style={{
-          minWidth: "900px",
-          width: "900px",
-          maxWidth: "95vw",
-          margin: "40px auto",
-          height: "600px",
-          borderRadius: 25,
-          boxShadow: "0 8px 48px 0 #000c",
-          fontFamily: "Inter, sans-serif",
+          width: width,
+          height: height,
+          maxWidth: "98vw",
+          maxHeight: "99vh",
         }}
         onClick={e => e.stopPropagation()}
         tabIndex={0}
       >
-        <div className="modal-header synergy-modal-header">
-          {/* <h3 className="modal-title synergy-modal-title">{title}</h3> */}
+        <div className="synergy-modal-header">
           {!hideClose && (
             <button
-              className="modal-close synergy-modal-close"
+              className="synergy-modal-close"
               onClick={onClose}
               aria-label="Close modal"
             >
@@ -91,11 +85,15 @@ export default function Modal({
             </button>
           )}
         </div>
-        <div className="modal-content synergy-modal-content">{children}</div>
+        <div className="synergy-modal-content">
+          {title && (
+            <h3 className="synergy-modal-title">{title}</h3>
+          )}
+          {children}
+        </div>
       </div>
     </div>
   );
 
-  // *** Render into <body> via Portal ***
   return ReactDOM.createPortal(modalJSX, document.body);
 }

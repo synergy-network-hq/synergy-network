@@ -1,70 +1,42 @@
 import DilithiumModule from './dilithium_wasm.js';
 
+// Constants for Dilithium3 (match your WASM exports)
+const PK_LEN = 1472;
+const SK_LEN = 3504;
+const SIG_MAX_LEN = 2701;
+
 export async function initDilithium() {
-  // Only this is new: pass locateFile so you don't edit the WASM loader file!
+  // Load the WASM module and set up helpers
   const mod = await DilithiumModule({
     locateFile: (path) =>
       path.endsWith('.wasm') ? '/pqc/dilithium_wasm.wasm' : path,
   });
 
-  const PK_LEN = 1952;
-  const SK_LEN = 4032;
-  const SIG_MAX_LEN = 3309;
-
-  console.log("Module initialized");
-  console.log("Available functions:", Object.keys(mod).filter(k => k.startsWith('_')));
-
-  // Debug: Check memory size
-  console.log("Initial memory size:", mod.HEAPU8.length);
-  console.log("Memory buffer:", mod.HEAPU8.buffer.byteLength);
-
+  // -- Memory Helpers --
   function allocArray(data) {
+    // Accept Buffer, Array, or Uint8Array (convert to Uint8Array)
+    if (typeof Buffer !== "undefined" && Buffer.isBuffer(data)) {
+      data = new Uint8Array(data);
+    } else if (Array.isArray(data)) {
+      data = Uint8Array.from(data);
+    }
     if (!(data instanceof Uint8Array)) {
-      data = typeof data === "string"
-        ? new TextEncoder().encode(data)
-        : new Uint8Array(data);
+      throw new Error("Data must be Uint8Array");
     }
     const ptr = mod._malloc(data.length);
-    console.log(`Allocated ${data.length} bytes at ptr: ${ptr}`);
     if (ptr === 0) throw new Error("WASM malloc failed!");
-    // Check if pointer is within valid memory range
-    if (ptr + data.length > mod.HEAPU8.length) {
-      console.error(`Pointer ${ptr} + ${data.length} exceeds memory size ${mod.HEAPU8.length}`);
-      mod._free(ptr);
-      throw new Error("Allocated memory exceeds WASM memory bounds");
-    }
     mod.HEAPU8.set(data, ptr);
     return ptr;
   }
 
   function freeArray(ptr) {
-    if (ptr !== 0) {
-      console.log(`Freeing ptr: ${ptr}`);
-      mod._free(ptr);
-    }
+    if (ptr !== 0) mod._free(ptr);
   }
 
-  // Helper function to allocate aligned memory for integers
-  function allocAligned(size, alignment = 8) {
-    const ptr = mod._malloc(size + alignment - 1);
-    if (ptr === 0) throw new Error("WASM malloc failed!");
-    // Align pointer to the specified boundary
-    const alignedPtr = (ptr + alignment - 1) & ~(alignment - 1);
-    console.log(`Allocated ${size} bytes, raw ptr: ${ptr}, aligned ptr: ${alignedPtr}`);
-    return { ptr, alignedPtr };
-  }
-
-  function freeAligned(ptrInfo) {
-    if (ptrInfo.ptr !== 0) {
-      console.log(`Freeing aligned ptr: ${ptrInfo.ptr}`);
-      mod._free(ptrInfo.ptr);
-    }
-  }
-
+  // -- Keypair generation (random) --
   async function keypair() {
     const pkPtr = mod._malloc(PK_LEN);
     const skPtr = mod._malloc(SK_LEN);
-    console.log(`Keypair alloc - pkPtr: ${pkPtr}, skPtr: ${skPtr}`);
     if (pkPtr === 0 || skPtr === 0) {
       freeArray(pkPtr);
       freeArray(skPtr);
@@ -72,91 +44,91 @@ export async function initDilithium() {
     }
     try {
       const result = mod._dilithium3_keypair(pkPtr, skPtr);
-      console.log("Keypair generation result:", result);
-      if (result !== 0) throw new Error(`Keypair generation failed with error code: ${result}`);
-      const pkOut = new Uint8Array(PK_LEN);
-      const skOut = new Uint8Array(SK_LEN);
-      pkOut.set(mod.HEAPU8.subarray(pkPtr, pkPtr + PK_LEN));
-      skOut.set(mod.HEAPU8.subarray(skPtr, skPtr + SK_LEN));
-      return { publicKey: pkOut, secretKey: skOut };
+      if (result !== 0) throw new Error(`Keypair generation failed: ${result}`);
+      const pk = new Uint8Array(mod.HEAPU8.subarray(pkPtr, pkPtr + PK_LEN));
+      const sk = new Uint8Array(mod.HEAPU8.subarray(skPtr, skPtr + SK_LEN));
+      return { publicKey: pk, secretKey: sk };
     } finally {
       freeArray(pkPtr);
       freeArray(skPtr);
     }
   }
 
-  async function sign(message, secretKey) {
-    console.log("=== SIGN FUNCTION DEBUG ===");
+  // -- Deterministic keypair generation from 32-byte seed --
+  function generateKeypairFromSeed(seed) {
+    // Accept Buffer, Array, or Uint8Array (convert to Uint8Array)
+    if (typeof Buffer !== "undefined" && Buffer.isBuffer(seed)) {
+      seed = new Uint8Array(seed);
+    } else if (Array.isArray(seed)) {
+      seed = Uint8Array.from(seed);
+    }
+    if (!(seed instanceof Uint8Array)) {
+      throw new Error("Seed must be Uint8Array");
+    }
+    if (seed.length !== 32) {
+      throw new Error("Seed buffer must be 32 bytes for Dilithium3 deterministic keygen.");
+    }
+
+    const seedPtr = mod._malloc(32);
+    const pkPtr = mod._malloc(PK_LEN);
+    const skPtr = mod._malloc(SK_LEN);
+    mod.HEAPU8.set(seed, seedPtr);
+
+    try {
+      // If your WASM supports deterministic keygen, call _dilithium3_keypair_with_seed:
+      if (typeof mod._dilithium3_keypair_with_seed === "function") {
+        const result = mod._dilithium3_keypair_with_seed(pkPtr, skPtr, seedPtr);
+        if (result !== 0) throw new Error(`Deterministic keypair failed: ${result}`);
+      } else if (typeof mod._dilithium3_keypair === "function" && arguments.length === 2) {
+        // If only random keygen is supported, this will NOT be deterministic!
+        mod._dilithium3_keypair(pkPtr, skPtr);
+      } else {
+        throw new Error("No deterministic Dilithium3 keypair function in WASM.");
+      }
+      const pk = new Uint8Array(mod.HEAPU8.subarray(pkPtr, pkPtr + PK_LEN));
+      const sk = new Uint8Array(mod.HEAPU8.subarray(skPtr, skPtr + SK_LEN));
+      return { publicKey: pk, privateKey: sk };
+    } finally {
+      freeArray(seedPtr);
+      freeArray(pkPtr);
+      freeArray(skPtr);
+    }
+  }
+
+  // -- Signing --
+  function sign(message, secretKey) {
     if (!(message instanceof Uint8Array)) {
       message = new TextEncoder().encode(String(message));
     }
     if (!(secretKey instanceof Uint8Array)) {
       secretKey = new Uint8Array(secretKey);
     }
-    console.log('Message length:', message.length);
-    console.log('Secret key length:', secretKey.length);
-    console.log('Current memory size:', mod.HEAPU8.length);
     if (secretKey.length !== SK_LEN) {
-      throw new Error(`Invalid secret key length: ${secretKey.length}, expected ${SK_LEN}`);
+      throw new Error(`Secret key must be ${SK_LEN} bytes`);
     }
-    let msgPtr = 0, skPtr = 0, sigPtr = 0, sigLenPtrInfo = { ptr: 0, alignedPtr: 0 };
+
+    const msgPtr = allocArray(message);
+    const skPtr = allocArray(secretKey);
+    const sigPtr = mod._malloc(SIG_MAX_LEN);
+    const sigLenPtr = mod._malloc(4);
+
     try {
-      console.log("Allocating message...");
-      msgPtr = allocArray(message);
-      console.log("Allocating secret key...");
-      skPtr = allocArray(secretKey);
-      console.log("Allocating signature buffer...");
-      sigPtr = mod._malloc(SIG_MAX_LEN);
-      if (sigPtr === 0) throw new Error("Failed to allocate signature buffer");
-      console.log(`Signature buffer allocated at: ${sigPtr}`);
-      console.log("Allocating signature length buffer...");
-      sigLenPtrInfo = allocAligned(8, 8); // 8-byte aligned for 64-bit systems
-      const sigLenPtr = sigLenPtrInfo.alignedPtr;
-      console.log(`Signature length buffer allocated at: ${sigLenPtr}`);
-      const maxPtr = Math.max(
-        msgPtr + message.length,
-        skPtr + secretKey.length,
-        sigPtr + SIG_MAX_LEN,
-        sigLenPtr + 8
-      );
-      console.log(`Max pointer used: ${maxPtr}, Memory size: ${mod.HEAPU8.length}`);
-      if (maxPtr > mod.HEAPU8.length) {
-        throw new Error(`Memory access would exceed bounds: ${maxPtr} > ${mod.HEAPU8.length}`);
-      }
-      const sigLenIndex = sigLenPtr >> 2;
-      if (sigLenIndex >= mod.HEAPU32.length) {
-        throw new Error(`Signature length index ${sigLenIndex} exceeds HEAPU32 bounds`);
-      }
-      mod.HEAPU32[sigLenIndex] = SIG_MAX_LEN;
-      console.log(`Initialized sig length to: ${mod.HEAPU32[sigLenIndex]}`);
-      console.log("Verifying message in memory:", Array.from(mod.HEAPU8.subarray(msgPtr, msgPtr + Math.min(10, message.length))));
-      console.log("Verifying secret key in memory:", Array.from(mod.HEAPU8.subarray(skPtr, skPtr + 10)));
-      console.log('About to call dilithium3_sign...');
-      console.log(`Parameters: sigPtr=${sigPtr}, sigLenPtr=${sigLenPtr}, msgPtr=${msgPtr}, msgLen=${message.length}, skPtr=${skPtr}`);
+      mod.HEAPU32[sigLenPtr >> 2] = SIG_MAX_LEN;
       const result = mod._dilithium3_sign(sigPtr, sigLenPtr, msgPtr, message.length, skPtr);
-      console.log('Signing result:', result);
-      if (result !== 0) {
-        throw new Error(`Signing failed with error code: ${result}`);
-      }
-      const sigLen = mod.HEAPU32[sigLenIndex];
-      console.log('Signature length:', sigLen);
-      if (sigLen > SIG_MAX_LEN || sigLen === 0) {
-        throw new Error(`Invalid signature length: ${sigLen}`);
-      }
-      const sigOut = new Uint8Array(sigLen);
-      sigOut.set(mod.HEAPU8.subarray(sigPtr, sigPtr + sigLen));
-      console.log("Signature generated successfully, first 20 bytes:", Array.from(sigOut.slice(0, 20)));
-      return sigOut;
+      if (result !== 0) throw new Error(`Sign failed: ${result}`);
+      const sigLen = mod.HEAPU32[sigLenPtr >> 2];
+      if (sigLen > SIG_MAX_LEN) throw new Error(`Signature too long: ${sigLen}`);
+      return new Uint8Array(mod.HEAPU8.subarray(sigPtr, sigPtr + sigLen));
     } finally {
       freeArray(msgPtr);
       freeArray(skPtr);
       freeArray(sigPtr);
-      freeAligned(sigLenPtrInfo);
+      freeArray(sigLenPtr);
     }
   }
 
-  async function verify(message, signature, publicKey) {
-    console.log("=== VERIFY FUNCTION DEBUG ===");
+  // -- Verification --
+  function verify(message, signature, publicKey) {
     if (!(message instanceof Uint8Array)) {
       message = new TextEncoder().encode(String(message));
     }
@@ -166,21 +138,15 @@ export async function initDilithium() {
     if (!(publicKey instanceof Uint8Array)) {
       publicKey = new Uint8Array(publicKey);
     }
-    console.log('Verifying:');
-    console.log('- message length:', message.length);
-    console.log('- signature length:', signature.length);
-    console.log('- public key length:', publicKey.length);
     if (publicKey.length !== PK_LEN) {
-      throw new Error(`Invalid public key length: ${publicKey.length}, expected ${PK_LEN}`);
+      throw new Error(`Public key must be ${PK_LEN} bytes`);
     }
-    let msgPtr = 0, sigPtr = 0, pkPtr = 0;
+    const msgPtr = allocArray(message);
+    const sigPtr = allocArray(signature);
+    const pkPtr = allocArray(publicKey);
+
     try {
-      msgPtr = allocArray(message);
-      sigPtr = allocArray(signature);
-      pkPtr = allocArray(publicKey);
-      console.log(`Verify pointers: msgPtr=${msgPtr}, sigPtr=${sigPtr}, pkPtr=${pkPtr}`);
       const result = mod._dilithium3_verify(sigPtr, signature.length, msgPtr, message.length, pkPtr);
-      console.log('Verification result:', result);
       return result === 0;
     } finally {
       freeArray(msgPtr);
@@ -189,16 +155,14 @@ export async function initDilithium() {
     }
   }
 
-  // Test memory allocation
-  console.log("Testing memory allocation...");
-  const testPtr = mod._malloc(1000);
-  console.log(`Test allocation of 1000 bytes: ${testPtr}`);
-  if (testPtr > 0) {
-    mod._free(testPtr);
-    console.log("Test allocation successful");
-  } else {
-    console.error("Test allocation failed");
-  }
-
-  return { keypair, sign, verify };
+  // Export all functions needed elsewhere
+  return {
+    keypair,
+    generateKeypairFromSeed,
+    sign,
+    verify,
+    PK_LEN,
+    SK_LEN,
+    SIG_MAX_LEN
+  };
 }

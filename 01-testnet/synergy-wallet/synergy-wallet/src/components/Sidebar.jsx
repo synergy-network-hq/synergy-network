@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "../modals/Modal";
-import CreateWalletWizard from "../modals/CreateWalletWizard";
-import logo from "./logo.png"
+import UmaWalletWizard from "../modals/umaWalletWizard";
+import logo from "./logo.png";
 import "../styles/global.css";
 
 const buttons = [
@@ -23,11 +23,15 @@ export default function Sidebar({ wallet, onWalletCreated, onLogout }) {
         {buttons.map(label => (
           <button key={label} className="sidebar-button">{label}</button>
         ))}
-        <button className="sidebar-button" onClick={() => setShowWizard(true)}>+ Create New Wallet</button>
+        <button className="sidebar-button" onClick={() => setShowWizard(true)}>
+          + Create New Wallet
+        </button>
         <hr className="bottom" />
         {wallet && (
           <div style={{ width: "100%", marginTop: 10 }}>
-            <div style={{ fontFamily: "Inter Medium", fontSize: 14, marginBottom: 3 }}>Current Wallet:</div>
+            <div style={{ fontFamily: "Inter Medium", fontSize: 14, marginBottom: 3 }}>
+              Current Wallet:
+            </div>
             <div style={{
               fontFamily: "monospace",
               fontSize: 13,
@@ -42,17 +46,21 @@ export default function Sidebar({ wallet, onWalletCreated, onLogout }) {
                 ? wallet.synergyAddress.slice(0, 11) + "..." + wallet.synergyAddress.slice(-3)
                 : "(no address)"}
             </div>
-
           </div>
         )}
       </div>
-      <Modal isOpen={showWizard} onClose={() => setShowWizard(false)} title="Create New Wallet">
-        <CreateWalletWizard
-          onComplete={walletObj => {
+      <Modal
+        isOpen={showWizard}
+        onClose={() => setShowWizard(false)}
+        title="Create New Wallet"
+      >
+        <UmaWalletWizard
+          isOpen={showWizard}
+          onClose={() => setShowWizard(false)}
+          onWalletCreated={walletObj => {
             setShowWizard(false);
-            onWalletCreated(walletObj);
+            if (onWalletCreated) onWalletCreated(walletObj);
           }}
-          onCancel={() => setShowWizard(false)}
         />
       </Modal>
       <div className="sidebar-footer">
