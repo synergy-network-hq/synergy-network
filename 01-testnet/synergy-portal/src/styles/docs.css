@@ -89,20 +89,7 @@ body {
   color: #fff;
 }
 
-.doc-search-button {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
 
-.doc-search-button:hover {
-  background-color: #1d4ed8;
-}
 
 /* === Main Content === */
 .docs-content-container {

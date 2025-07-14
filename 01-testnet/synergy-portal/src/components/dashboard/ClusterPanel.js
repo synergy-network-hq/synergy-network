@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@chakra-ui/react";
 
 export default function ClusterPanel({ clusters = [] }) {
   return (
@@ -9,15 +10,15 @@ export default function ClusterPanel({ clusters = [] }) {
           <li key={c.name} className="flex justify-between items-center py-1">
             <span className="text-blue-100 font-medium">{c.name}</span>
             <span className="text-blue-300">{c.synergy} synergy</span>
-            <button className="ml-2 text-xs bg-blue-700 hover:bg-blue-800 px-2 py-1 rounded text-white shadow">
+            <Button className="wizard-btn" size="sm" ml={2} px={2} py={1} fontSize="xs">
               View
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
-      <button className="mt-4 w-full py-2 bg-blue-700 rounded-xl text-white font-medium shadow hover:bg-blue-600 transition">
+      <Button className="wizard-btn" mt={4} w="full" py={2} fontSize="sm">
         Join or Create Cluster
-      </button>
+      </Button>
     </div>
   );
 }

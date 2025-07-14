@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/docs.css';
+import { Button } from '@chakra-ui/react';
 
 const DocSearchBar = () => {
   const [query, setQuery] = useState('');
@@ -27,9 +28,9 @@ const DocSearchBar = () => {
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
       />
-      <button className="doc-search-button" onClick={handleSearch}>
+      <Button className="wizard-btn doc-search-button" onClick={handleSearch} fontSize="sm" px={4} py={2}>
         Search
-      </button>
+      </Button>
     </div>
   );
 };

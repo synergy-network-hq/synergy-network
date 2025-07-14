@@ -1,3 +1,5 @@
+
+html,
 :root {
   --rainbow-gradient: linear-gradient(60deg, #1399FF, #FF00C7, #FFD700, #00FFB3);
 }
@@ -10,7 +12,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(75deg, #000000, #0c0518, #0e051d);
-  min-height: 100vh;
+}
+
+:root {
+  --rainbow-gradient: linear-gradient(90deg, #1399FF, #8A38F5, #0500A3);
 }
 
 code {

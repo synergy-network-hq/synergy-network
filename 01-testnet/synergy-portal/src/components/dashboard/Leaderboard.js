@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@chakra-ui/react";
 
 export default function Leaderboard({ leaderboard = [] }) {
   return (
@@ -12,9 +13,9 @@ export default function Leaderboard({ leaderboard = [] }) {
           </li>
         ))}
       </ol>
-      <button className="mt-4 w-full py-2 bg-blue-700 rounded-xl text-white font-medium shadow hover:bg-blue-600 transition">
+      <Button className="wizard-btn" mt={4} w="full" py={2} fontSize="sm">
         See Full Leaderboard
-      </button>
+      </Button>
     </div>
   );
 }

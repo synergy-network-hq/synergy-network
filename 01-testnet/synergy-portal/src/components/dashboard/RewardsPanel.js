@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@chakra-ui/react";
 
 export default function RewardsPanel({ rewards }) {
   return (
@@ -17,9 +18,9 @@ export default function RewardsPanel({ rewards }) {
           </span>
         </div>
       </div>
-      <button className="mt-6 py-2 bg-blue-600 rounded-xl text-white font-medium shadow hover:bg-blue-500 transition">
+      <Button className="wizard-btn" mt={6} py={2} fontSize="sm">
         View Payout History
-      </button>
+      </Button>
     </div>
   );
 }
