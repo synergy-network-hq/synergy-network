@@ -3,6 +3,7 @@
 import { mnemonicToSeedSync } from '@scure/bip39';
 import { HDKey } from '@scure/bip32';
 import { publicToAddress, toChecksumAddress } from "ethereumjs-util";
+import { Buffer } from 'buffer';
 import { derivePath as solDerivePath } from "ed25519-hd-key";
 import { Keypair } from "@solana/web3.js";
 
@@ -43,7 +44,7 @@ export function generateETHWalletFromMnemonic(mnemonic, path = "m/44'/60'/0'/0/0
   if (pubkey[0] === 0x04 && pubkey.length === 65) {
     pubkey = pubkey.slice(1);
   }
-  const ethAddressBuffer = publicToAddress(pubkey, true); // true = ethereum
+  const ethAddressBuffer = publicToAddress(Buffer.from(pubkey), true); // true = ethereum
   const address = toChecksumAddress("0x" + ethAddressBuffer.toString("hex"));
 
   return {
