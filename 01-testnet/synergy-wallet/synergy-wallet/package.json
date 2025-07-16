@@ -37,7 +37,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "tree": "tree -I 'node_modules|removed|*.txt|*.wasm|*.png|*.gif|*.ico|.git|*.log|dist|venv|build|.DS_Store|project-file-tree.txt|project-tree.txt|__pycache__' -a -F > clean-project-tree.txt"
+    "tree": "tree -I 'node_modules|*.txt|*.wasm|*.png|*.gif|*.ico|.git|*.log|dist|venv|build|.DS_Store|__pycache__' -a -F > clean-project-tree.txt"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^13.0.0",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.2.1"
   }

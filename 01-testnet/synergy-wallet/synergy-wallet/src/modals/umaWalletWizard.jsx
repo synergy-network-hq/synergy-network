@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import * as bip39 from "bip39";
-import { generateDeterministicDilithiumKeypair } from '../utils/pqc';
+import { generateDeterministicDilithiumKeypair } from "../utils/pqc";
 import {
   generateBTCAddressFromMnemonic,
   generateETHWalletFromMnemonic,
@@ -11,7 +11,6 @@ import { pubkeyToSynergyAddress } from "../utils/synergyAddress";
 import { encryptSecret } from "../utils/crypto";
 import { toHex } from "../utils/hexUtils";
 import { useNavigate } from "react-router-dom";
-import "../styles/global.css";
 
 const SEED_WORD_OPTIONS = [12, 24];
 const DEFAULT_VERIFY_WORDS = 3;
@@ -33,7 +32,9 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
   const [mode, setMode] = useState("create");
   const [seedLength, setSeedLength] = useState(12);
   const [seedPhrase, setSeedPhrase] = useState([]);
-  const [enteredSeedPhrase, setEnteredSeedPhrase] = useState(Array(12).fill(""));
+  const [enteredSeedPhrase, setEnteredSeedPhrase] = useState(
+    Array(12).fill("")
+  );
   const [verifyIndexes, setVerifyIndexes] = useState([]);
   const [verifyInputs, setVerifyInputs] = useState([]);
   const [error, setError] = useState("");
@@ -56,7 +57,14 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
         Steps.SNS,
         Steps.COMPLETE,
       ]
-      : [Steps.MODE, Steps.IMPORT_CHOOSE_LENGTH, Steps.IMPORT_ENTRY, Steps.PASSWORD, Steps.SNS, Steps.COMPLETE];
+      : [
+        Steps.MODE,
+        Steps.IMPORT_CHOOSE_LENGTH,
+        Steps.IMPORT_ENTRY,
+        Steps.PASSWORD,
+        Steps.SNS,
+        Steps.COMPLETE,
+      ];
   const progress = totalSteps.indexOf(step) / (totalSteps.length - 1);
 
   function randomUniqueIndexes(n, max) {
@@ -67,7 +75,9 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
 
   function handleModeSelect(m) {
     setMode(m);
-    setStep(m === "create" ? Steps.CREATE_CHOOSE_LENGTH : Steps.IMPORT_CHOOSE_LENGTH);
+    setStep(
+      m === "create" ? Steps.CREATE_CHOOSE_LENGTH : Steps.IMPORT_CHOOSE_LENGTH
+    );
     setError("");
   }
 
@@ -99,8 +109,11 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
     let correct = true;
     verifyIndexes.forEach((idx, i) => {
       if (
-        (mode === "create" && verifyInputs[i].trim().toLowerCase() !== seedPhrase[idx]) ||
-        (mode === "import" && verifyInputs[i].trim().toLowerCase() !== enteredSeedPhrase[idx].trim().toLowerCase())
+        (mode === "create" &&
+          verifyInputs[i].trim().toLowerCase() !== seedPhrase[idx]) ||
+        (mode === "import" &&
+          verifyInputs[i].trim().toLowerCase() !==
+          enteredSeedPhrase[idx].trim().toLowerCase())
       ) {
         correct = false;
       }
@@ -143,7 +156,9 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
     setError("");
     setProcessing(true);
     try {
-      const { publicKey, privateKey } = await generateDeterministicDilithiumKeypair(seedPhrase.join(" "));
+      const seedBytes = bip39.mnemonicToSeedSync(seedPhrase.join(" ")); // 64-byte seed
+      const { publicKey, privateKey } =
+        await generateDeterministicDilithiumKeypair(new Uint8Array(seedBytes));
       const synergyAddress = await pubkeyToSynergyAddress(publicKey);
       const btc = generateBTCAddressFromMnemonic(seedPhrase.join(" "));
       const eth = generateETHWalletFromMnemonic(seedPhrase.join(" "));
@@ -161,7 +176,7 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
         bitcoinAddress: btc.address,
         ethereumAddress: eth.address,
         solanaAddress: sol.address,
-        networks: ['synergy', 'bitcoin', 'ethereum', 'solana'],
+        networks: ["synergy", "bitcoin", "ethereum", "solana"],
         createdAt: new Date().toISOString(),
         backupStatus: "not_backed_up",
         sns: sns && !snsSkip ? sns : null,
@@ -183,21 +198,32 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
   function renderProgressBar() {
     return (
       <div style={{ width: "100%", margin: "0 0 16px 0" }}>
-        <div style={{
-          height: 8,
-          background: "#eee",
-          borderRadius: 8,
-          overflow: "hidden",
-          position: "relative",
-        }}>
-          <div style={{
-            width: `${Math.round(progress * 100)}%`,
-            background: "#3070ea",
-            height: "100%",
-            transition: "width 0.4s",
-          }} />
+        <div
+          style={{
+            height: 8,
+            background: "#eee",
+            borderRadius: 8,
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <div
+            style={{
+              width: `${Math.round(progress * 100)}%`,
+              background: "#3070ea",
+              height: "100%",
+              transition: "width 0.4s",
+            }}
+          />
         </div>
-        <div style={{ textAlign: "right", fontSize: 12, color: "#999", marginTop: 2 }}>
+        <div
+          style={{
+            textAlign: "right",
+            fontSize: 12,
+            color: "#999",
+            marginTop: 2,
+          }}
+        >
           Step {totalSteps.indexOf(step) + 1} of {totalSteps.length}
         </div>
       </div>
@@ -210,8 +236,12 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
         <h2>Welcome to Synergy Wallet</h2>
         <p>Create a new wallet or import an existing one.</p>
         <div style={{ display: "flex", gap: 20, margin: "24px 0" }}>
-          <button onClick={() => handleModeSelect("create")}>Create New Wallet</button>
-          <button onClick={() => handleModeSelect("import")}>Import Wallet</button>
+          <button onClick={() => handleModeSelect("create")}>
+            Create New Wallet
+          </button>
+          <button onClick={() => handleModeSelect("import")}>
+            Import Wallet
+          </button>
         </div>
       </div>
     );
@@ -247,7 +277,14 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
       <div>
         <h3>Your Recovery Phrase</h3>
         <p>Write down these {seedLength} words in order and keep them safe!</p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, margin: "18px 0" }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 8,
+            margin: "18px 0",
+          }}
+        >
           {seedPhrase.map((word, idx) => (
             <div
               key={idx}
@@ -261,7 +298,9 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
                 textAlign: "left",
               }}
             >
-              <span style={{ fontSize: 12, color: "#777", marginRight: 6 }}>{idx + 1}.</span>
+              <span style={{ fontSize: 12, color: "#777", marginRight: 6 }}>
+                {idx + 1}.
+              </span>
               <span style={{ fontSize: 18 }}>{word}</span>
             </div>
           ))}
@@ -279,7 +318,11 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
         <h3>Import Wallet: Seed Phrase Length</h3>
         <div style={{ display: "flex", gap: 20, margin: "24px 0" }}>
           {SEED_WORD_OPTIONS.map((opt) => (
-            <button key={opt} onClick={() => handleSeedLengthSelect(opt)} style={{ padding: "12px 28px" }}>
+            <button
+              key={opt}
+              onClick={() => handleSeedLengthSelect(opt)}
+              style={{ padding: "12px 28px" }}
+            >
               {opt} words
             </button>
           ))}
@@ -295,7 +338,14 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
     return (
       <div>
         <h3>Enter your {seedLength}-word seed phrase</h3>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, margin: "18px 0" }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 8,
+            margin: "18px 0",
+          }}
+        >
           {enteredSeedPhrase.map((word, idx) => (
             <div
               key={idx}
@@ -306,7 +356,9 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
                 alignItems: "center",
               }}
             >
-              <span style={{ fontSize: 11, color: "#888", marginRight: 4 }}>{idx + 1}.</span>
+              <span style={{ fontSize: 11, color: "#888", marginRight: 4 }}>
+                {idx + 1}.
+              </span>
               <input
                 style={{ width: 60, padding: 4, fontSize: 15 }}
                 type="text"
@@ -324,7 +376,10 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
         <button onClick={handleValidateImport} style={{ marginTop: 12 }}>
           Continue
         </button>
-        <button onClick={() => setStep(Steps.IMPORT_CHOOSE_LENGTH)} style={{ marginTop: 8 }}>
+        <button
+          onClick={() => setStep(Steps.IMPORT_CHOOSE_LENGTH)}
+          style={{ marginTop: 8 }}
+        >
           Back
         </button>
         {error && <div style={{ color: "red", marginTop: 10 }}>{error}</div>}
@@ -341,7 +396,9 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
         <div style={{ display: "flex", gap: 20, margin: "20px 0" }}>
           {verifyIndexes.map((idx, i) => (
             <div key={idx}>
-              <div style={{ fontSize: 12, color: "#888", marginBottom: 2 }}>Word #{idx + 1}</div>
+              <div style={{ fontSize: 12, color: "#888", marginBottom: 2 }}>
+                Word #{idx + 1}
+              </div>
               <input
                 style={{ width: 80, padding: 5, fontSize: 16 }}
                 type="text"
@@ -377,26 +434,35 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
     return (
       <div>
         <h3>Create a Wallet Password</h3>
-        <p>Your password encrypts your wallet on this device. Do not forget it!</p>
+        <p>
+          Your password encrypts your wallet on this device. Do not forget it!
+        </p>
         <input
           style={{ width: "100%", margin: "10px 0", padding: 8, fontSize: 16 }}
           type="password"
           placeholder="Enter password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <input
           style={{ width: "100%", margin: "10px 0", padding: 8, fontSize: 16 }}
           type="password"
           placeholder="Confirm password"
           value={password2}
-          onChange={e => setPassword2(e.target.value)}
+          onChange={(e) => setPassword2(e.target.value)}
         />
-        <button onClick={handlePasswordContinue} style={{ marginTop: 10 }}>Continue</button>
-        <button onClick={() => {
-          if (mode === "create") setStep(Steps.CREATE_VERIFY);
-          else setStep(Steps.CREATE_VERIFY);
-        }} style={{ marginTop: 8 }}>Back</button>
+        <button onClick={handlePasswordContinue} style={{ marginTop: 10 }}>
+          Continue
+        </button>
+        <button
+          onClick={() => {
+            if (mode === "create") setStep(Steps.CREATE_VERIFY);
+            else setStep(Steps.CREATE_VERIFY);
+          }}
+          style={{ marginTop: 8 }}
+        >
+          Back
+        </button>
         {error && <div style={{ color: "red", marginTop: 10 }}>{error}</div>}
       </div>
     );
@@ -412,14 +478,23 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
           placeholder="username.syn (optional)"
           value={sns}
           disabled={snsSkip}
-          onChange={e => setSNS(e.target.value)}
+          onChange={(e) => setSNS(e.target.value)}
         />
         <label style={{ display: "block", marginBottom: 16 }}>
-          <input type="checkbox" checked={snsSkip} onChange={() => setSNSSkip(!snsSkip)} />
+          <input
+            type="checkbox"
+            checked={snsSkip}
+            onChange={() => setSNSSkip(!snsSkip)}
+          />
           Skip this step
         </label>
-        <button onClick={handleSNSContinue} disabled={processing}>Finish</button>
-        <button onClick={() => setStep(Steps.PASSWORD)} style={{ marginTop: 8 }}>
+        <button onClick={handleSNSContinue} disabled={processing}>
+          Finish
+        </button>
+        <button
+          onClick={() => setStep(Steps.PASSWORD)}
+          style={{ marginTop: 8 }}
+        >
           Back
         </button>
         {error && <div style={{ color: "red", marginTop: 10 }}>{error}</div>}
@@ -432,7 +507,8 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
       <div style={{ textAlign: "center", padding: 24 }}>
         <h2>Wallet Setup Complete!</h2>
         <p>
-          You can view your wallet address and all details from the Settings page.
+          You can view your wallet address and all details from the Settings
+          page.
           <br />
           Redirecting to dashboard...
         </p>
@@ -446,16 +522,35 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
   if (!isOpen) return null;
   let stepUI = null;
   switch (step) {
-    case Steps.MODE: stepUI = renderModeStep(); break;
-    case Steps.CREATE_CHOOSE_LENGTH: stepUI = renderChooseLengthStep(); break;
-    case Steps.CREATE_REVEAL: stepUI = renderRevealStep(); break;
-    case Steps.IMPORT_CHOOSE_LENGTH: stepUI = renderImportChooseLengthStep(); break;
-    case Steps.IMPORT_ENTRY: stepUI = renderImportEntryStep(); break;
-    case Steps.CREATE_VERIFY: stepUI = renderVerifyStep(); break;
-    case Steps.PASSWORD: stepUI = renderPasswordStep(); break;
-    case Steps.SNS: stepUI = renderSNSStep(); break;
-    case Steps.COMPLETE: stepUI = renderCompleteStep(); break;
-    default: stepUI = null;
+    case Steps.MODE:
+      stepUI = renderModeStep();
+      break;
+    case Steps.CREATE_CHOOSE_LENGTH:
+      stepUI = renderChooseLengthStep();
+      break;
+    case Steps.CREATE_REVEAL:
+      stepUI = renderRevealStep();
+      break;
+    case Steps.IMPORT_CHOOSE_LENGTH:
+      stepUI = renderImportChooseLengthStep();
+      break;
+    case Steps.IMPORT_ENTRY:
+      stepUI = renderImportEntryStep();
+      break;
+    case Steps.CREATE_VERIFY:
+      stepUI = renderVerifyStep();
+      break;
+    case Steps.PASSWORD:
+      stepUI = renderPasswordStep();
+      break;
+    case Steps.SNS:
+      stepUI = renderSNSStep();
+      break;
+    case Steps.COMPLETE:
+      stepUI = renderCompleteStep();
+      break;
+    default:
+      stepUI = null;
   }
 
   return (
@@ -463,7 +558,11 @@ export default function UmaWalletWizard({ isOpen, onClose, onWalletCreated }) {
       <div style={{ minWidth: 420, maxWidth: 500, padding: 20 }}>
         {renderProgressBar()}
         {stepUI}
-        {processing && <div style={{ marginTop: 12, color: "#999" }}>Creating wallet, please wait...</div>}
+        {processing && (
+          <div style={{ marginTop: 12, color: "#999" }}>
+            Creating wallet, please wait...
+          </div>
+        )}
         {error && <div style={{ color: "red", marginTop: 10 }}>{error}</div>}
       </div>
     </Modal>
