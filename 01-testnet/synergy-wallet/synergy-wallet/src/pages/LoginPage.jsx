@@ -14,14 +14,9 @@ export default function LoginPage({ onWalletCreatedOrImported }) {
           className="sidebar-button inlineStyle94"
           onClick={() => setShowWizard(true)}
         >
-          Create New Wallet
+          Connect Wallet
         </button>
-        <button
-          className="sidebar-button inlineStyle94"
-          onClick={() => setShowWizard(true)}
-        >
-          Import/Recover Wallet
-        </button>
+        
       </div>
       <UmaWalletWizard
         isOpen={showWizard}

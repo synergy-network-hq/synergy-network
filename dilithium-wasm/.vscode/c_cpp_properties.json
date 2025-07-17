@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/home/hootzluh/emsdk/upstream/emscripten/system/include"
+      ],
+      "defines": [],
+      "compilerPath": "/home/hootzluh/emsdk/upstream/emscripten/emcc",
+      "cStandard": "c11",
+      "cppStandard": "c++17"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Dilithium WASM Demo</title>
+  <script type="module">
+    import { initDilithium } from './dilithium.js';
+
+    let dilithium;
+
+    function toHex(arr) {
+      return Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    function fromHex(hex) {
+      if (!hex) return new Uint8Array();
+      return new Uint8Array(hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    }
+
+    async function setup() {
+      dilithium = await initDilithium();
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('main').style.display = '';
+    }
+
+    window.onload = setup;
+
+    window.genKeypair = async function () {
+      const { publicKey, secretKey } = await dilithium.keypair();
+      document.getElementById('pubkey').value = toHex(publicKey);
+      document.getElementById('seckey').value = toHex(secretKey);
+    };
+
+    window.signMsg = async function () {
+      const secretKeyHex = document.getElementById('seckey').value;
+      const message = document.getElementById('message').value;
+      const secretKey = fromHex(secretKeyHex);
+      const msgBytes = new TextEncoder().encode(message);
+      const sig = await dilithium.sign(msgBytes, secretKey);
+      document.getElementById('signature').value = toHex(sig);
+      console.log('secretKey', secretKey);
+      console.log('secretKey bytes (first 10):', Array.from(secretKey.slice(0, 10)));
+
+    };
+
+    window.verifySig = async function () {
+      const publicKeyHex = document.getElementById('pubkey').value;
+      const message = document.getElementById('message').value;
+      const signatureHex = document.getElementById('signature').value;
+      const publicKey = fromHex(publicKeyHex);
+      const signature = fromHex(signatureHex);
+      const msgBytes = new TextEncoder().encode(message);
+      const valid = await dilithium.verify(msgBytes, signature, publicKey);
+      document.getElementById('valid').textContent = valid ? "✅ Valid" : "❌ Invalid";
+    };
+  </script>
+</head>
+
+<body>
+  <div id="loading">Loading...</div>
+  <div id="main" style="display: none;">
+    <button onclick="genKeypair()">Generate Keypair</button>
+    <br>
+    Public Key: <input id="pubkey" size="80"><br>
+    Secret Key: <input id="seckey" size="90"><br>
+    Message: <input id="message" size="60"><br>
+    <button onclick="signMsg()">Sign Message</button>
+    <br>
+    Signature: <input id="signature" size="90"><br>
+    <button onclick="verifySig()">Verify Signature</button>
+    <span id="valid"></span>
+  </div>
+</body>
+
+</html>

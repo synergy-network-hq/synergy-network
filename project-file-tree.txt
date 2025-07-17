@@ -1,447 +1,366 @@
-synergy-network
-├── .gitignore
-├── 01-testnet/
-│   ├── synergy_testnet/
-│   │   ├── .gitignore
-│   │   ├── Cargo.lock
-│   │   ├── Cargo.toml
-│   │   ├── config/
-│   │   │   ├── consensus-config.toml
-│   │   │   ├── genesis.json
-│   │   │   ├── network-config.toml
-│   │   │   ├── node_config.toml
-│   │   │   └── token_metadata.json
-│   │   ├── data/
-│   │   │   ├── chain.json
-│   │   │   ├── logs/
-│   │   │   │   └── testnet.out
-│   │   │   ├── testnet 2.pid
-│   │   │   └── testnet.pid
-│   │   ├── dependencies/
-│   │   │   ├── Cargo.toml
-│   │   │   └── package.json
-│   │   ├── docs/
-│   │   │   ├── README.md
-│   │   │   └── setup-guide.md
-│   │   ├── file_tree.txt
-│   │   ├── file.java
-│   │   ├── LICENSE
-│   │   ├── scripts/
-│   │   │   ├── start-testnet.sh
-│   │   │   └── stop-testnet.sh
-│   │   ├── src/
-│   │   │   ├── block.rs
-│   │   │   ├── broadcast.rs
-│   │   │   ├── config/
-│   │   │   │   └── mod.rs
-│   │   │   ├── consensus/
-│   │   │   │   ├── consensus_algorithm.rs
-│   │   │   │   └── mod.rs
-│   │   │   ├── contracts.rs
-│   │   │   ├── lib.rs
-│   │   │   ├── main.rs
-│   │   │   ├── node/
-│   │   │   │   ├── mod.rs
-│   │   │   │   └── synergyd.rs*
-│   │   │   ├── p2p/
-│   │   │   │   ├── identity.rs
-│   │   │   │   ├── mod.rs
-│   │   │   │   └── networking.rs
-│   │   │   ├── rpc/
-│   │   │   │   ├── mod.rs
-│   │   │   │   └── rpc_server.rs
-│   │   │   └── transaction.rs
-│   │   └── tests/
-│   │       ├── test_blockchain.rs
-│   │       ├── test_consensus_algorithm.rs
-│   │       ├── test_p2p_networking.rs
-│   │       ├── test_rpc_server.rs
-│   │       ├── test_smart_contracts.rs
-│   │       ├── test_synergyd.rs
-│   │       └── test_transactions.rs
-│   ├── synergy_utility/
-│   │   ├── .gitignore
-│   │   ├── archive/
-│   │   │   ├── __init__.py.bak_from_impl
-│   │   │   ├── address.py.bak_from_impl
-│   │   │   ├── block.py.bak_from_impl
-│   │   │   ├── dilithium.py.bak_from_impl
-│   │   │   ├── hash.py.bak_from_impl
-│   │   │   ├── kyber.py.bak_from_impl
-│   │   │   ├── p2p.py.bak_from_impl
-│   │   │   ├── pbft_consensus.py.bak_from_impl
-│   │   │   ├── state.py.bak_from_impl
-│   │   │   ├── synergy_points.py.bak_from_impl
-│   │   │   ├── task_pool.py.bak_from_impl
-│   │   │   ├── transaction.py.bak_from_impl
-│   │   │   └── validator_cluster.py.bak_from_impl
-│   │   ├── CLI/
-│   │   │   ├── __init__.py
-│   │   │   ├── ascii.py
-│   │   │   ├── assets/
-│   │   │   ├── cli_app.py
-│   │   │   ├── README.md
-│   │   │   ├── requirements.txt
-│   │   │   ├── setup.py
-│   │   │   ├── synergy_uma/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── chain_derivations.py
-│   │   │   │   ├── pq_keys.py
-│   │   │   │   └── sns_api.py
-│   │   │   └── utility/
-│   │   │       ├── __init__.py
-│   │   │       ├── common/
-│   │   │       │   ├── __init__.py
-│   │   │       │   └── config.py
-│   │   │       └── core/
-│   │   │           ├── __init__.py
-│   │   │           ├── blockchain/
-│   │   │           │   ├── __init__.py
-│   │   │           │   └── block.py
-│   │   │           ├── naming.py
-│   │   │           ├── network/
-│   │   │           │   ├── __init__.py
-│   │   │           │   └── p2p.py
-│   │   │           ├── state/
-│   │   │           │   ├── __init__.py
-│   │   │           │   └── state.py
-│   │   │           ├── token.py
-│   │   │           ├── transaction/
-│   │   │           │   ├── __init__.py
-│   │   │           │   └── transaction.py
-│   │   │           └── wallet.py
-│   │   ├── GUI/
-│   │   │   ├── __init__.py
-│   │   │   ├── assets/
-│   │   │   │   ├── metal.jpg
-│   │   │   │   ├── sn-logo-dark.png
-│   │   │   │   ├── sn-logo-light.png
-│   │   │   │   ├── syn 2.icns
-│   │   │   │   ├── syn.icns
-│   │   │   │   ├── syn.png
-│   │   │   │   └── utility_logo.png
-│   │   │   ├── bridge_out.log
-│   │   │   ├── index.html
-│   │   │   ├── main.js
-│   │   │   ├── package-lock.json
-│   │   │   ├── package.json
-│   │   │   ├── preload.js
-│   │   │   ├── python_bridge.py
-│   │   │   ├── README.md
-│   │   │   ├── renderer.js
-│   │   │   ├── requirements.txt
-│   │   │   ├── src/
-│   │   │   │   ├── App.jsx
-│   │   │   │   ├── components/
-│   │   │   │   │   ├── layout/
-│   │   │   │   │   ├── settings/
-│   │   │   │   │   ├── sns/
-│   │   │   │   │   ├── token/
-│   │   │   │   │   │   └── ViewToken.jsx
-│   │   │   │   │   ├── uma/
-│   │   │   │   │   ├── validators/
-│   │   │   │   │   └── wallet/
-│   │   │   │   │       └── ViewWallet.jsx
-│   │   │   │   ├── index.jsx
-│   │   │   │   └── routes.jsx
-│   │   │   ├── styles.css
-│   │   │   ├── synergy_uma/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── chain_derivations.py
-│   │   │   │   ├── pq_keys.py
-│   │   │   │   └── sns_api.py
-│   │   │   └── utility/
-│   │   │       ├── __init__.py
-│   │   │       ├── common/
-│   │   │       │   ├── __init__.py
-│   │   │       │   └── config.py
-│   │   │       └── core/
-│   │   │           ├── __init__.py
-│   │   │           ├── blockchain/
-│   │   │           │   ├── __init__.py
-│   │   │           │   └── block.py
-│   │   │           ├── naming.py
-│   │   │           ├── network/
-│   │   │           │   ├── __init__.py
-│   │   │           │   └── p2p.py
-│   │   │           ├── state/
-│   │   │           │   ├── __init__.py
-│   │   │           │   └── state.py
-│   │   │           ├── token.py
-│   │   │           ├── transaction/
-│   │   │           │   ├── __init__.py
-│   │   │           │   └── transaction.py
-│   │   │           └── wallet.py
-│   │   ├── GUI.zip
-│   │   ├── Implementation/
-│   │   │   ├── __init__.py
-│   │   │   ├── common/
-│   │   │   │   ├── __init__.py
+.
+├── 01-testnet
+│   ├── Icon\015
+│   ├── index.html
+│   ├── project-files
+│   │   ├── Icon\015
+│   │   ├── synergy-network
+│   │   │   ├── architecture
+│   │   │   │   ├── consensus_specification.md
+│   │   │   │   ├── diagrams
+│   │   │   │   │   ├── consensus_flow.png
+│   │   │   │   │   ├── consensus_flow.py
+│   │   │   │   │   ├── network_topology.png
+│   │   │   │   │   ├── network_topology.py
+│   │   │   │   │   ├── pqc_implementation.png
+│   │   │   │   │   └── pqc_implementation.py
+│   │   │   │   ├── pqc_specification.md
+│   │   │   │   ├── system_architecture.md
+│   │   │   │   └── web_portal_design.md
+│   │   │   ├── backend
+│   │   │   │   ├── api
+│   │   │   │   │   ├── controllers
+│   │   │   │   │   │   ├── blockchain.js
+│   │   │   │   │   │   ├── explorer.js
+│   │   │   │   │   │   ├── ico.js
+│   │   │   │   │   │   └── wallet.js
+│   │   │   │   │   └── routes
+│   │   │   │   │       ├── blockchain.js
+│   │   │   │   │       ├── explorer.js
+│   │   │   │   │       ├── ico.js
+│   │   │   │   │       └── wallet.js
+│   │   │   │   ├── config
+│   │   │   │   │   └── index.js
+│   │   │   │   ├── package.json
+│   │   │   │   ├── server.js
+│   │   │   │   └── services
+│   │   │   │       ├── blockchain.js
+│   │   │   │       ├── explorer.js
+│   │   │   │       ├── ico.js
+│   │   │   │       └── wallet.js
+│   │   │   ├── blockchain_components.md
+│   │   │   ├── cli_utility
+│   │   │   │   ├── cli_app.py
+│   │   │   │   ├── README.md
+│   │   │   │   ├── requirements.txt
+│   │   │   │   ├── setup.py
+│   │   │   │   └── synergy_uma
+│   │   │   │       ├── chain_derivations.py
+│   │   │   │       ├── pq_keys.py
+│   │   │   │       └── sns_api.py
+│   │   │   ├── common
 │   │   │   │   └── config.py
-│   │   │   ├── consensus/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── pbft_consensus.py
-│   │   │   │   ├── synergy_points.py
-│   │   │   │   ├── task_pool.py
-│   │   │   │   └── validator_cluster.py
-│   │   │   ├── core/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── blockchain/
+│   │   │   ├── docs
+│   │   │   │   ├── ARCHITECTURE.md
+│   │   │   │   ├── document_summary.json
+│   │   │   │   ├── images
+│   │   │   │   │   ├── logo.png
+│   │   │   │   │   └── syn.png
+│   │   │   │   ├── Proof of Synergy Whitepaper.txt
+│   │   │   │   ├── README.md
+│   │   │   │   ├── real-world use cases.txt
+│   │   │   │   ├── Synergy Network Address Formatting.txt
+│   │   │   │   ├── Synergy Network Whitepaper.txt
+│   │   │   │   └── Synergy Token Whitepaper.txt
+│   │   │   ├── gui_utility
+│   │   │   │   ├── assets
+│   │   │   │   │   ├── syn 2.icns
+│   │   │   │   │   ├── syn.icns
+│   │   │   │   │   └── syn.png
+│   │   │   │   ├── index.html
+│   │   │   │   ├── main.js
+│   │   │   │   ├── package.json
+│   │   │   │   ├── preload.js
+│   │   │   │   ├── python_bridge.py
+│   │   │   │   ├── README.md
+│   │   │   │   ├── renderer.js
+│   │   │   │   ├── styles.css
+│   │   │   │   └── synergy_uma
+│   │   │   │       ├── chain_derivations.py
+│   │   │   │       ├── pq_keys.py
+│   │   │   │       └── sns_api.py
+│   │   │   ├── implementation
+│   │   │   │   ├── consensus
+│   │   │   │   │   ├── pbft_consensus.py
+│   │   │   │   │   ├── synergy_points.py
+│   │   │   │   │   ├── task_pool.py
+│   │   │   │   │   └── validator_cluster.py
+│   │   │   │   ├── core
+│   │   │   │   │   ├── blockchain
+│   │   │   │   │   │   ├── block.py
+│   │   │   │   │   │   └── __init__.py
 │   │   │   │   │   ├── __init__.py
-│   │   │   │   │   └── block.py
-│   │   │   │   ├── naming.py
-│   │   │   │   ├── network/
-│   │   │   │   │   ├── __init__.py
-│   │   │   │   │   └── p2p.py
-│   │   │   │   ├── state/
-│   │   │   │   │   ├── __init__.py
-│   │   │   │   │   └── state.py
-│   │   │   │   ├── token.py
-│   │   │   │   ├── transaction/
-│   │   │   │   │   ├── __init__.py
-│   │   │   │   │   └── transaction.py
-│   │   │   │   └── wallet.py
-│   │   │   ├── cryptography/
-│   │   │   │   ├── __init__.py
-│   │   │   │   └── pqc/
-│   │   │   │       ├── __init__.py
-│   │   │   │       ├── address.py
-│   │   │   │       ├── dilithium.py
-│   │   │   │       ├── hash.py
-│   │   │   │       └── kyber.py
-│   │   │   ├── synergy_uma/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── chain_derivations.py
-│   │   │   │   ├── pq_keys.py
-│   │   │   │   └── sns_api.py
-│   │   │   └── utility/
-│   │   │       ├── core/
-│   │   │       │   ├── config.py
-│   │   │       │   ├── naming.py
-│   │   │       │   ├── token.py
-│   │   │       │   └── wallet.py
-│   │   │       └── setup.py
-│   │   ├── misc/
-│   │   │   ├── metadata-template.json
-│   │   │   ├── security-information-template.json
-│   │   │   ├── synergy-token-metadata.json
-│   │   │   ├── synergy-token-security.json
-│   │   │   └── token_metadata_template.json
-│   │   ├── pqcrypto/
-│   │   │   ├── __init__.py
-│   │   │   ├── _sign/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── dilithium2.cpython-313-darwin.so*
-│   │   │   │   └── dilithium3.cpython-313-darwin.so*
-│   │   │   ├── common.py
-│   │   │   └── sign/
-│   │   │       ├── __init__.py
-│   │   │       ├── common.py
-│   │   │       └── dilithium2.py
-│   │   ├── README.md
-│   │   └── UPDATED_Implementation_Tree.txt
-│   ├── synergy_utility.zip
-│   ├── synergy-network/
-│   │   ├── .gitignore*
-│   │   ├── architecture/
-│   │   │   ├── consensus_specification.md*
-│   │   │   ├── diagrams/
-│   │   │   │   ├── consensus_flow.png*
-│   │   │   │   ├── consensus_flow.py*
-│   │   │   │   ├── network_topology.png*
-│   │   │   │   ├── network_topology.py*
-│   │   │   │   ├── pqc_implementation.png*
-│   │   │   │   └── pqc_implementation.py*
-│   │   │   ├── pqc_specification.md*
-│   │   │   ├── system_architecture.md*
-│   │   │   └── web_portal_design.md*
-│   │   ├── backend/
-│   │   │   ├── .gitignore*
-│   │   │   ├── api/
-│   │   │   │   ├── controllers/
-│   │   │   │   │   ├── blockchain.js*
-│   │   │   │   │   ├── explorer.js*
-│   │   │   │   │   ├── ico.js*
-│   │   │   │   │   └── wallet.js*
-│   │   │   │   └── routes/
-│   │   │   │       ├── blockchain.js*
-│   │   │   │       ├── explorer.js*
-│   │   │   │       ├── ico.js*
-│   │   │   │       └── wallet.js*
-│   │   │   ├── config/
-│   │   │   │   └── index.js*
-│   │   │   ├── package-lock.json
-│   │   │   ├── package.json*
-│   │   │   ├── server.js*
-│   │   │   └── services/
-│   │   │       ├── blockchain.js*
-│   │   │       ├── explorer.js*
-│   │   │       ├── ico.js*
-│   │   │       └── wallet.js*
-│   │   ├── blockchain_components.md*
-│   │   ├── cli_utility/
-│   │   │   ├── cli_app.py*
-│   │   │   ├── README.md*
-│   │   │   ├── requirements.txt*
-│   │   │   ├── setup.py*
-│   │   │   └── synergy_uma/
-│   │   │       ├── chain_derivations.py
-│   │   │       ├── pq_keys.py
-│   │   │       └── sns_api.py
-│   │   ├── common/
-│   │   │   └── config.py*
-│   │   ├── docs/
-│   │   │   ├── ARCHITECTURE.md*
-│   │   │   ├── document_summary.json*
-│   │   │   ├── images/
-│   │   │   │   ├── logo.png*
-│   │   │   │   └── syn.png*
-│   │   │   ├── Proof of Synergy Whitepaper.txt*
-│   │   │   ├── README.md*
-│   │   │   ├── real-world use cases.txt*
-│   │   │   ├── Synergy Network Address Formatting.txt*
-│   │   │   ├── Synergy Network Whitepaper.txt*
-│   │   │   └── Synergy Token Whitepaper.txt*
-│   │   ├── gui_utility/
-│   │   │   ├── assets/
-│   │   │   │   ├── syn 2.icns*
-│   │   │   │   ├── syn.icns
-│   │   │   │   └── syn.png
-│   │   │   ├── index.html*
-│   │   │   ├── main.js*
-│   │   │   ├── package-lock.json
-│   │   │   ├── package.json*
-│   │   │   ├── preload.js*
-│   │   │   ├── python_bridge.py*
-│   │   │   ├── README.md*
-│   │   │   ├── renderer.js*
-│   │   │   ├── styles.css*
-│   │   │   └── synergy_uma/
-│   │   │       ├── chain_derivations.py
-│   │   │       ├── pq_keys.py
-│   │   │       └── sns_api.py
-│   │   ├── implementation/
-│   │   │   ├── consensus/
-│   │   │   │   ├── pbft_consensus.py*
-│   │   │   │   ├── synergy_points.py*
-│   │   │   │   ├── task_pool.py*
-│   │   │   │   └── validator_cluster.py*
-│   │   │   ├── core/
-│   │   │   │   ├── __init__.py*
-│   │   │   │   ├── blockchain/
-│   │   │   │   │   ├── __init__.py*
-│   │   │   │   │   └── block.py*
-│   │   │   │   ├── network/
-│   │   │   │   │   ├── __init__.py*
-│   │   │   │   │   └── p2p.py*
-│   │   │   │   ├── state/
-│   │   │   │   │   ├── __init__.py*
-│   │   │   │   │   └── state.py*
-│   │   │   │   └── transaction/
-│   │   │   │       ├── __init__.py*
-│   │   │   │       └── transaction.py*
-│   │   │   ├── cryptography/
-│   │   │   │   └── pqc/
-│   │   │   │       ├── __init__.py*
-│   │   │   │       ├── address.py*
-│   │   │   │       ├── dilithium.py*
-│   │   │   │       ├── hash.py*
-│   │   │   │       └── kyber.py*
-│   │   │   └── utility/
-│   │   │       ├── cli_utility/
-│   │   │       │   ├── __init__.py
-│   │   │       │   ├── cli_app.py*
-│   │   │       │   ├── README.md*
-│   │   │       │   ├── requirements.txt*
-│   │   │       │   ├── synergy_uma/
-│   │   │       │   │   ├── __init__.py
-│   │   │       │   │   ├── chain_derivations.py
-│   │   │       │   │   ├── pq_keys.py
-│   │   │       │   │   └── sns_api.py
-│   │   │       │   └── utility/
-│   │   │       │       ├── __init__.py
-│   │   │       │       ├── common/
-│   │   │       │       │   ├── __init__.py
-│   │   │       │       │   └── config.py*
-│   │   │       │       └── core/
-│   │   │       │           ├── __init__.py
-│   │   │       │           ├── naming.py*
-│   │   │       │           ├── token.py*
-│   │   │       │           └── wallet.py*
-│   │   │       ├── common/
-│   │   │       │   └── config.py*
-│   │   │       ├── core/
-│   │   │       │   ├── naming.py*
-│   │   │       │   ├── token.py*
-│   │   │       │   └── wallet.py*
-│   │   │       ├── gui/
-│   │   │       │   ├── assets/
-│   │   │       │   │   └── syn.icns*
-│   │   │       │   ├── index.html*
-│   │   │       │   ├── main.js*
-│   │   │       │   ├── package.json*
-│   │   │       │   ├── preload.js*
-│   │   │       │   ├── python_bridge.py*
-│   │   │       │   ├── renderer.js*
-│   │   │       │   └── styles.css*
-│   │   │       ├── gui_utility/
-│   │   │       │   ├── assets/
-│   │   │       │   │   ├── syn 2.icns*
-│   │   │       │   │   ├── syn.icns
-│   │   │       │   │   └── syn.png
-│   │   │       │   ├── index.html*
-│   │   │       │   ├── main.js*
-│   │   │       │   ├── package-lock.json
-│   │   │       │   ├── package.json*
-│   │   │       │   ├── preload.js*
-│   │   │       │   ├── python_bridge.py*
-│   │   │       │   ├── README.md*
-│   │   │       │   ├── renderer.js*
-│   │   │       │   ├── styles.css*
-│   │   │       │   └── synergy_uma/
-│   │   │       │       ├── chain_derivations.py
-│   │   │       │       ├── pq_keys.py
-│   │   │       │       └── sns_api.py
-│   │   │       └── setup.py*
+│   │   │   │   │   ├── network
+│   │   │   │   │   │   ├── __init__.py
+│   │   │   │   │   │   └── p2p.py
+│   │   │   │   │   ├── state
+│   │   │   │   │   │   ├── __init__.py
+│   │   │   │   │   │   └── state.py
+│   │   │   │   │   └── transaction
+│   │   │   │   │       ├── __init__.py
+│   │   │   │   │       └── transaction.py
+│   │   │   │   ├── cryptography
+│   │   │   │   │   └── pqc
+│   │   │   │   │       ├── address.py
+│   │   │   │   │       ├── dilithium.py
+│   │   │   │   │       ├── hash.py
+│   │   │   │   │       ├── __init__.py
+│   │   │   │   │       └── kyber.py
+│   │   │   │   └── utility
+│   │   │   │       ├── cli_utility
+│   │   │   │       │   ├── cli_app.py
+│   │   │   │       │   ├── __init__.py
+│   │   │   │       │   ├── README.md
+│   │   │   │       │   ├── requirements.txt
+│   │   │   │       │   ├── synergy_uma
+│   │   │   │       │   │   ├── chain_derivations.py
+│   │   │   │       │   │   ├── __init__.py
+│   │   │   │       │   │   ├── pq_keys.py
+│   │   │   │       │   │   └── sns_api.py
+│   │   │   │       │   └── utility
+│   │   │   │       │       ├── common
+│   │   │   │       │       │   ├── config.py
+│   │   │   │       │       │   └── __init__.py
+│   │   │   │       │       ├── core
+│   │   │   │       │       │   ├── __init__.py
+│   │   │   │       │       │   ├── naming.py
+│   │   │   │       │       │   ├── token.py
+│   │   │   │       │       │   └── wallet.py
+│   │   │   │       │       └── __init__.py
+│   │   │   │       ├── common
+│   │   │   │       │   └── config.py
+│   │   │   │       ├── core
+│   │   │   │       │   ├── naming.py
+│   │   │   │       │   ├── token.py
+│   │   │   │       │   └── wallet.py
+│   │   │   │       ├── gui
+│   │   │   │       │   ├── assets
+│   │   │   │       │   │   └── syn.icns
+│   │   │   │       │   ├── index.html
+│   │   │   │       │   ├── main.js
+│   │   │   │       │   ├── package.json
+│   │   │   │       │   ├── preload.js
+│   │   │   │       │   ├── python_bridge.py
+│   │   │   │       │   ├── renderer.js
+│   │   │   │       │   └── styles.css
+│   │   │   │       ├── gui_utility
+│   │   │   │       │   ├── assets
+│   │   │   │       │   │   ├── syn 2.icns
+│   │   │   │       │   │   ├── syn.icns
+│   │   │   │       │   │   └── syn.png
+│   │   │   │       │   ├── index.html
+│   │   │   │       │   ├── main.js
+│   │   │   │       │   ├── package.json
+│   │   │   │       │   ├── preload.js
+│   │   │   │       │   ├── python_bridge.py
+│   │   │   │       │   ├── README.md
+│   │   │   │       │   ├── renderer.js
+│   │   │   │       │   ├── styles.css
+│   │   │   │       │   └── synergy_uma
+│   │   │   │       │       ├── chain_derivations.py
+│   │   │   │       │       ├── pq_keys.py
+│   │   │   │       │       └── sns_api.py
+│   │   │   │       └── setup.py
+│   │   │   ├── package.json
+│   │   │   ├── project_analysis.md
+│   │   │   ├── README.md
+│   │   │   ├── SETUP.md
+│   │   │   ├── testnet
+│   │   │   │   ├── config
+│   │   │   │   │   └── network_config.json
+│   │   │   │   ├── consensus
+│   │   │   │   │   ├── pbft_consensus.js
+│   │   │   │   │   ├── synergy_points.js
+│   │   │   │   │   ├── task_pool.js
+│   │   │   │   │   └── validator_cluster.js
+│   │   │   │   ├── crypto
+│   │   │   │   │   └── pqc_crypto.js
+│   │   │   │   ├── node
+│   │   │   │   │   └── node.js
+│   │   │   │   └── scripts
+│   │   │   │       ├── start_node.js
+│   │   │   │       └── test_node.js
+│   │   │   ├── todo.md
+│   │   │   ├── tokenomics
+│   │   │   │   └── token_economics.md
+│   │   │   └── web_portal_components.md
+│   │   └── synergy_utility
+│   │       ├── archive
+│   │       │   ├── address.py.bak_from_impl
+│   │       │   ├── block.py.bak_from_impl
+│   │       │   ├── dilithium.py.bak_from_impl
+│   │       │   ├── hash.py.bak_from_impl
+│   │       │   ├── __init__.py.bak_from_impl
+│   │       │   ├── kyber.py.bak_from_impl
+│   │       │   ├── p2p.py.bak_from_impl
+│   │       │   ├── pbft_consensus.py.bak_from_impl
+│   │       │   ├── state.py.bak_from_impl
+│   │       │   ├── synergy_points.py.bak_from_impl
+│   │       │   ├── task_pool.py.bak_from_impl
+│   │       │   ├── transaction.py.bak_from_impl
+│   │       │   └── validator_cluster.py.bak_from_impl
+│   │       ├── CLI
+│   │       │   ├── ascii.py
+│   │       │   ├── cli_app.py
+│   │       │   ├── __init__.py
+│   │       │   ├── README.md
+│   │       │   ├── requirements.txt
+│   │       │   ├── setup.py
+│   │       │   ├── synergy_uma
+│   │       │   │   ├── chain_derivations.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── pq_keys.py
+│   │       │   │   └── sns_api.py
+│   │       │   └── utility
+│   │       │       ├── common
+│   │       │       │   ├── config.py
+│   │       │       │   └── __init__.py
+│   │       │       ├── core
+│   │       │       │   ├── blockchain
+│   │       │       │   │   ├── block.py
+│   │       │       │   │   └── __init__.py
+│   │       │       │   ├── __init__.py
+│   │       │       │   ├── naming.py
+│   │       │       │   ├── network
+│   │       │       │   │   ├── __init__.py
+│   │       │       │   │   └── p2p.py
+│   │       │       │   ├── state
+│   │       │       │   │   ├── __init__.py
+│   │       │       │   │   └── state.py
+│   │       │       │   ├── token.py
+│   │       │       │   ├── transaction
+│   │       │       │   │   ├── __init__.py
+│   │       │       │   │   └── transaction.py
+│   │       │       │   └── wallet.py
+│   │       │       └── __init__.py
+│   │       ├── GUI
+│   │       │   ├── assets
+│   │       │   │   ├── metal.jpg
+│   │       │   │   ├── sn-logo-dark.png
+│   │       │   │   ├── sn-logo-light.png
+│   │       │   │   ├── syn 2.icns
+│   │       │   │   ├── syn.icns
+│   │       │   │   ├── syn.png
+│   │       │   │   └── utility_logo.png
+│   │       │   ├── index.html
+│   │       │   ├── __init__.py
+│   │       │   ├── main.js
+│   │       │   ├── preload.js
+│   │       │   ├── python_bridge.py
+│   │       │   ├── README.md
+│   │       │   ├── renderer.js
+│   │       │   ├── requirements.txt
+│   │       │   ├── src
+│   │       │   │   ├── App.jsx
+│   │       │   │   ├── components
+│   │       │   │   │   ├── token
+│   │       │   │   │   │   └── ViewToken.jsx
+│   │       │   │   │   └── wallet
+│   │       │   │   │       └── ViewWallet.jsx
+│   │       │   │   ├── index.jsx
+│   │       │   │   └── routes.jsx
+│   │       │   ├── styles.css
+│   │       │   ├── synergy_uma
+│   │       │   │   ├── chain_derivations.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── pq_keys.py
+│   │       │   │   └── sns_api.py
+│   │       │   └── utility
+│   │       │       ├── common
+│   │       │       │   ├── config.py
+│   │       │       │   └── __init__.py
+│   │       │       ├── core
+│   │       │       │   ├── blockchain
+│   │       │       │   │   ├── block.py
+│   │       │       │   │   └── __init__.py
+│   │       │       │   ├── __init__.py
+│   │       │       │   ├── naming.py
+│   │       │       │   ├── network
+│   │       │       │   │   ├── __init__.py
+│   │       │       │   │   └── p2p.py
+│   │       │       │   ├── state
+│   │       │       │   │   ├── __init__.py
+│   │       │       │   │   └── state.py
+│   │       │       │   ├── token.py
+│   │       │       │   ├── transaction
+│   │       │       │   │   ├── __init__.py
+│   │       │       │   │   └── transaction.py
+│   │       │       │   └── wallet.py
+│   │       │       └── __init__.py
+│   │       ├── GUI.zip
+│   │       ├── Implementation
+│   │       │   ├── common
+│   │       │   │   ├── config.py
+│   │       │   │   └── __init__.py
+│   │       │   ├── consensus
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── pbft_consensus.py
+│   │       │   │   ├── synergy_points.py
+│   │       │   │   ├── task_pool.py
+│   │       │   │   └── validator_cluster.py
+│   │       │   ├── core
+│   │       │   │   ├── blockchain
+│   │       │   │   │   ├── block.py
+│   │       │   │   │   └── __init__.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── naming.py
+│   │       │   │   ├── network
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   └── p2p.py
+│   │       │   │   ├── state
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   └── state.py
+│   │       │   │   ├── token.py
+│   │       │   │   ├── transaction
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   └── transaction.py
+│   │       │   │   └── wallet.py
+│   │       │   ├── cryptography
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── pqc
+│   │       │   │       ├── address.py
+│   │       │   │       ├── dilithium.py
+│   │       │   │       ├── hash.py
+│   │       │   │       ├── __init__.py
+│   │       │   │       └── kyber.py
+│   │       │   ├── __init__.py
+│   │       │   ├── synergy_uma
+│   │       │   │   ├── chain_derivations.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── pq_keys.py
+│   │       │   │   └── sns_api.py
+│   │       │   └── utility
+│   │       │       ├── core
+│   │       │       │   ├── config.py
+│   │       │       │   ├── naming.py
+│   │       │       │   ├── token.py
+│   │       │       │   └── wallet.py
+│   │       │       └── setup.py
+│   │       ├── pqcrypto
+│   │       │   ├── common.py
+│   │       │   ├── __init__.py
+│   │       │   ├── _sign
+│   │       │   │   ├── dilithium2.cpython-313-darwin.so
+│   │       │   │   ├── dilithium3.cpython-313-darwin.so
+│   │       │   │   └── __init__.py
+│   │       │   └── sign
+│   │       │       ├── common.py
+│   │       │       ├── dilithium2.py
+│   │       │       └── __init__.py
+│   │       ├── README.md
+│   │       └── UPDATED_Implementation_Tree.txt
+│   ├── synergy-portal
+│   │   ├── package.json
 │   │   ├── package-lock.json
-│   │   ├── package.json*
-│   │   ├── project_analysis.md*
-│   │   ├── README.md*
-│   │   ├── SETUP.md*
-│   │   ├── testnet/
-│   │   │   ├── .gitignore*
-│   │   │   ├── config/
-│   │   │   │   └── network_config.json*
-│   │   │   ├── consensus/
-│   │   │   │   ├── pbft_consensus.js*
-│   │   │   │   ├── synergy_points.js*
-│   │   │   │   ├── task_pool.js*
-│   │   │   │   └── validator_cluster.js*
-│   │   │   ├── crypto/
-│   │   │   │   └── pqc_crypto.js*
-│   │   │   ├── data/
-│   │   │   ├── node/
-│   │   │   │   └── node.js*
-│   │   │   └── scripts/
-│   │   │       ├── start_node.js*
-│   │   │       └── test_node.js*
-│   │   ├── todo.md*
-│   │   ├── tokenomics/
-│   │   │   └── token_economics.md*
-│   │   └── web_portal_components.md
-│   ├── synergy-portal/
-│   │   ├── .gitignore
-│   │   ├── package-lock.json
-│   │   ├── package.json*
-│   │   ├── public/
-│   │   │   ├── docs/
-│   │   │   │   ├── core-concepts/
+│   │   ├── public
+│   │   │   ├── docs
+│   │   │   │   ├── core-concepts
 │   │   │   │   │   ├── post_quantum_crypto.md
 │   │   │   │   │   ├── proof_of_synergy.md
 │   │   │   │   │   ├── synergy_naming_system.md
 │   │   │   │   │   ├── synergy_points_system.md
 │   │   │   │   │   └── validator_clusters.md
-│   │   │   │   ├── dev-resources/
+│   │   │   │   ├── dev-resources
 │   │   │   │   │   ├── api_reference.md
 │   │   │   │   │   ├── api_sdk_integration.md
 │   │   │   │   │   ├── deployment_tools.md
@@ -453,20 +372,20 @@ synergy-network
 │   │   │   │   │   ├── testing_frameworks.md
 │   │   │   │   │   └── uma_resolution.md
 │   │   │   │   ├── docs_index.json
-│   │   │   │   ├── enterprise-security/
+│   │   │   │   ├── enterprise-security
 │   │   │   │   │   ├── bridge_node_operations.md
 │   │   │   │   │   ├── enterprise_integration_api.md
 │   │   │   │   │   ├── legal_disclaimer_risk_disclosures.md
 │   │   │   │   │   ├── liquidity_provision_cross_swap.md
 │   │   │   │   │   ├── quantum_security_deep_dive.md
 │   │   │   │   │   └── securit_risk_emergency_protocols.md
-│   │   │   │   ├── getting-started/
+│   │   │   │   ├── getting-started
 │   │   │   │   │   ├── creating_wallet.md
 │   │   │   │   │   ├── first_transaction.md
 │   │   │   │   │   ├── introduction_synergy.md
 │   │   │   │   │   ├── network_architecture.md
 │   │   │   │   │   └── obtaining_syn_tokens.md
-│   │   │   │   ├── governance/
+│   │   │   │   ├── governance
 │   │   │   │   │   ├── dao_voting_analytics.md
 │   │   │   │   │   ├── emergency_rollback.md
 │   │   │   │   │   ├── governance_model.md
@@ -474,13 +393,13 @@ synergy-network
 │   │   │   │   │   ├── proposal_system.md
 │   │   │   │   │   ├── treasury_management.md
 │   │   │   │   │   └── voting_mechanism.md
-│   │   │   │   ├── node-operations/
+│   │   │   │   ├── node-operations
 │   │   │   │   │   ├── becoming_validator.md
 │   │   │   │   │   ├── hardware_requirements.md
 │   │   │   │   │   ├── node_monitoring.md
 │   │   │   │   │   ├── node_troubleshooting.md
 │   │   │   │   │   └── running_full_node.md
-│   │   │   │   ├── testnet-resources/
+│   │   │   │   ├── testnet-resources
 │   │   │   │   │   ├── api_test_scripts_and_samples.md
 │   │   │   │   │   ├── dev_rpc_endpoints.md
 │   │   │   │   │   ├── genesis_block_config.md
@@ -491,7 +410,7 @@ synergy-network
 │   │   │   │   │   ├── testnet_faucet_contract.md
 │   │   │   │   │   ├── troubleshoot_testnet_deployment.md
 │   │   │   │   │   └── validator_setup_cli.md
-│   │   │   │   ├── tutorials/
+│   │   │   │   ├── tutorials
 │   │   │   │   │   ├── claim_test_tokens.md
 │   │   │   │   │   ├── create_sns_mapping.md
 │   │   │   │   │   ├── deploy_contract_testnet.md
@@ -502,14 +421,14 @@ synergy-network
 │   │   │   │   │   ├── staking_syn_rewards.md
 │   │   │   │   │   ├── uma_cross_chain_address.md
 │   │   │   │   │   └── vote_dao_proposal.md
-│   │   │   │   ├── wallet-&-tokens/
+│   │   │   │   ├── wallet-&-tokens
 │   │   │   │   │   ├── key_management.md
 │   │   │   │   │   ├── staking_guide.md
 │   │   │   │   │   ├── token_economics.md
 │   │   │   │   │   ├── token_migration_guide.md
 │   │   │   │   │   ├── transaction_fees.md
 │   │   │   │   │   └── wallet_user_guide.md
-│   │   │   │   └── whitepapers/
+│   │   │   │   └── whitepapers
 │   │   │   │       ├── address_format_specification.md
 │   │   │   │       ├── business_model_strategy.md
 │   │   │   │       ├── compliance_regulatory_framework.md
@@ -519,7 +438,7 @@ synergy-network
 │   │   │   │       ├── synergy_tokenomics.md
 │   │   │   │       └── use_case_whitepaper.md
 │   │   │   ├── favicon.ico
-│   │   │   ├── images/
+│   │   │   ├── images
 │   │   │   │   ├── syn-a.gif
 │   │   │   │   ├── syn-d.png
 │   │   │   │   ├── syn-l.png
@@ -529,10 +448,10 @@ synergy-network
 │   │   │   ├── logo512.png
 │   │   │   └── manifest.json
 │   │   ├── README.md
-│   │   └── src/
-│   │       ├── App.js*
-│   │       ├── components/
-│   │       │   ├── dashboard/
+│   │   └── src
+│   │       ├── App.js
+│   │       ├── components
+│   │       │   ├── dashboard
 │   │       │   │   ├── ClusterPanel.js
 │   │       │   │   ├── ContributionHistory.js
 │   │       │   │   ├── GrowthTips.js
@@ -542,103 +461,142 @@ synergy-network
 │   │       │   │   └── SynergyDashboard.js
 │   │       │   ├── DocSearchBar.js
 │   │       │   ├── DocViewer.js
-│   │       │   ├── layout/
+│   │       │   ├── layout
 │   │       │   │   ├── DocSidebar.js
-│   │       │   │   ├── Footer.js*
-│   │       │   │   └── Navbar.js*
-│   │       │   ├── LoadingScreen.js*
-│   │       │   ├── pages/
-│   │       │   │   ├── DashboardPage.js*
-│   │       │   │   ├── DocsPage.js*
+│   │       │   │   ├── Footer.js
+│   │       │   │   └── Navbar.js
+│   │       │   ├── LoadingScreen.js
+│   │       │   ├── pages
+│   │       │   │   ├── DashboardPage.js
+│   │       │   │   ├── DocsPage.js
 │   │       │   │   ├── EcosystemPage.jsx
-│   │       │   │   ├── ExplorerPage.js*
-│   │       │   │   ├── GasStationPage.js*
-│   │       │   │   ├── HomePage.js*
-│   │       │   │   ├── IcoPresalePage.js*
-│   │       │   │   ├── SettingsPage.js*
+│   │       │   │   ├── ExplorerPage.js
+│   │       │   │   ├── GasStationPage.js
+│   │       │   │   ├── HomePage.js
+│   │       │   │   ├── IcoPresalePage.js
+│   │       │   │   ├── SettingsPage.js
 │   │       │   │   ├── SynergyScorePage.js
-│   │       │   │   └── WalletPage.js*
-│   │       │   ├── ThemeToggle.js*
+│   │       │   │   └── WalletPage.js
+│   │       │   ├── ThemeToggle.js
 │   │       │   └── WalletOptionsModal.js
-│   │       ├── index.js*
-│   │       ├── services/
-│   │       │   ├── blockchainService.js*
-│   │       │   ├── walletConnectorService.js*
-│   │       │   └── walletContext.js*
-│   │       ├── styles/
+│   │       ├── index.js
+│   │       ├── services
+│   │       │   ├── blockchainService.js
+│   │       │   ├── walletConnectorService.js
+│   │       │   └── walletContext.js
+│   │       ├── styles
+│   │       │   ├── button.css
 │   │       │   ├── docs.css
 │   │       │   ├── footer.css
-│   │       │   ├── glassmorphism.css*
-│   │       │   ├── index.css*
-│   │       │   └── parallax.css*
-│   │       └── theme.js*
-│   ├── synergy-smart-contracts/
-│   │   ├── contracts/
+│   │       │   ├── glassmorphism.css
+│   │       │   ├── index.css
+│   │       │   └── parallax.css
+│   │       └── theme.js
+│   ├── synergy-smart-contracts
+│   │   ├── contracts
 │   │   │   ├── governance_contract.sol
 │   │   │   ├── liquidity_pool_contract.sol
 │   │   │   ├── staking_contract.sol
 │   │   │   ├── synergy_presale_contract.sol
 │   │   │   ├── synergy_token_contract.sol
 │   │   │   └── universal_atomic_swap.sol
-│   │   └── scripts/
+│   │   ├── Icon\015
+│   │   └── scripts
 │   │       └── deploy_smart_contracts.js
-│   ├── synergy-testnet-explorer/
-│   │   ├── .gitignore
-│   │   ├── backend/
-│   │   │   ├── .env
+│   ├── synergy_testnet
+│   │   ├── Cargo.toml
+│   │   ├── config
+│   │   │   ├── consensus-config.toml
+│   │   │   ├── genesis.json
+│   │   │   ├── network-config.toml
+│   │   │   ├── node_config.toml
+│   │   │   └── token_metadata.json
+│   │   ├── dependencies
+│   │   │   ├── Cargo.toml
+│   │   │   └── package.json
+│   │   ├── docs
+│   │   │   ├── README.md
+│   │   │   └── setup-guide.md
+│   │   ├── file_tree.txt
+│   │   ├── Icon\015
+│   │   ├── LICENSE
+│   │   ├── scripts
+│   │   │   ├── start-testnet.sh
+│   │   │   └── stop-testnet.sh
+│   │   ├── src
+│   │   │   ├── block.rs
+│   │   │   ├── broadcast.rs
+│   │   │   ├── config
+│   │   │   │   └── mod.rs
+│   │   │   ├── consensus
+│   │   │   │   ├── consensus_algorithm.rs
+│   │   │   │   └── mod.rs
+│   │   │   ├── contracts.rs
+│   │   │   ├── lib.rs
+│   │   │   ├── main.rs
+│   │   │   ├── node
+│   │   │   │   ├── mod.rs
+│   │   │   │   └── synergyd.rs
+│   │   │   ├── p2p
+│   │   │   │   ├── identity.rs
+│   │   │   │   ├── mod.rs
+│   │   │   │   └── networking.rs
+│   │   │   ├── rpc
+│   │   │   │   ├── mod.rs
+│   │   │   │   └── rpc_server.rs
+│   │   │   └── transaction.rs
+│   │   └── tests
+│   │       ├── test_blockchain.rs
+│   │       ├── test_consensus_algorithm.rs
+│   │       ├── test_p2p_networking.rs
+│   │       ├── test_rpc_server.rs
+│   │       ├── test_smart_contracts.rs
+│   │       ├── test_synergyd.rs
+│   │       └── test_transactions.rs
+│   ├── synergy-testnet-explorer
+│   │   ├── backend
 │   │   │   ├── Cargo.lock
 │   │   │   ├── Cargo.toml
-│   │   │   ├── data/
-│   │   │   │   └── chain.json
 │   │   │   ├── Dockerfile
-│   │   │   ├── migrations/
-│   │   │   │   ├── 0002_init.sql
-│   │   │   │   ├── 0003_init.sql
-│   │   │   │   ├── 001_create_blocks.sql
-│   │   │   │   └── 002_crate_transactions.sql
-│   │   │   └── src/
+│   │   │   └── src
 │   │   │       ├── api.rs
-│   │   │       ├── db/
+│   │   │       ├── db
 │   │   │       │   ├── db.rs
 │   │   │       │   └── mod.rs
-│   │   │       ├── handlers/
+│   │   │       ├── handlers
 │   │   │       │   └── mod.rs
 │   │   │       ├── indexer.rs
 │   │   │       ├── main.rs
 │   │   │       ├── models.rs
-│   │   │       ├── routes/
+│   │   │       ├── routes
 │   │   │       │   └── mod.rs
 │   │   │       └── schema.rs
-│   │   ├── database/
-│   │   │   └── schema.sql
 │   │   ├── docker-compose.yml
 │   │   ├── Dockerfile.save
-│   │   ├── frontend/
-│   │   │   ├── .env
-│   │   │   ├── .gitignore
-│   │   │   ├── package-lock.json
+│   │   ├── frontend
 │   │   │   ├── package.json
-│   │   │   ├── public/
+│   │   │   ├── package-lock.json
+│   │   │   ├── public
 │   │   │   │   ├── favicon.ico
 │   │   │   │   └── index.html
 │   │   │   ├── README.md
-│   │   │   ├── src/
+│   │   │   ├── src
 │   │   │   │   ├── api.ts
 │   │   │   │   ├── App.css
 │   │   │   │   ├── App.tsx
-│   │   │   │   ├── assets/
+│   │   │   │   ├── assets
 │   │   │   │   │   ├── 0.png
 │   │   │   │   │   ├── circuit.png
 │   │   │   │   │   ├── explorer-b.png
-│   │   │   │   │   ├── Explorer-logo.png
 │   │   │   │   │   ├── Explorer-logo1.png
-│   │   │   │   │   ├── logo-glow-b.png
-│   │   │   │   │   ├── logo.png
+│   │   │   │   │   ├── Explorer-logo.png
 │   │   │   │   │   ├── logo1.png
 │   │   │   │   │   ├── logo4.png
+│   │   │   │   │   ├── logo-glow-b.png
+│   │   │   │   │   ├── logo.png
 │   │   │   │   │   ├── metal.jpg
 │   │   │   │   │   └── metal.png
-│   │   │   │   ├── components/
+│   │   │   │   ├── components
 │   │   │   │   │   ├── BlockList.tsx
 │   │   │   │   │   ├── BlocksTable.tsx
 │   │   │   │   │   ├── Footer.tsx
@@ -653,7 +611,7 @@ synergy-network
 │   │   │   │   ├── declarations.d.ts
 │   │   │   │   ├── index.css
 │   │   │   │   ├── index.tsx
-│   │   │   │   └── styles/
+│   │   │   │   └── styles
 │   │   │   │       ├── BlocksTable.css
 │   │   │   │       ├── Footer.css
 │   │   │   │       ├── Marquee.css
@@ -664,56 +622,56 @@ synergy-network
 │   │   │   │       └── TransactionsTable.css
 │   │   │   └── tsconfig.json
 │   │   ├── LICENSE
-│   │   ├── package-lock.json
 │   │   ├── package.json
+│   │   ├── package-lock.json
 │   │   └── README.md
-│   ├── synergy-testnet-explorer.zip
-│   ├── synergy-testnet-main/
-│   │   ├── .gitignore
+│   ├── synergy-testnet-main
 │   │   ├── Cargo.lock
 │   │   ├── Cargo.toml
-│   │   ├── config/
+│   │   ├── config
 │   │   │   ├── consensus-config.toml
 │   │   │   ├── genesis.json
 │   │   │   ├── network-config.toml
 │   │   │   ├── node_config.toml
 │   │   │   └── token_metadata.json
-│   │   ├── data/
-│   │   │   └── logs/
-│   │   │       └── testnet.out
-│   │   ├── dependencies/
+│   │   ├── data
+│   │   │   ├── logs
+│   │   │   │   └── testnet.out
+│   │   │   └── testnet.pid
+│   │   ├── dependencies
 │   │   │   ├── Cargo.toml
 │   │   │   └── package.json
-│   │   ├── docs/
+│   │   ├── docs
 │   │   │   ├── README.md
 │   │   │   └── setup-guide.md
+│   │   ├── Icon\015
 │   │   ├── LICENSE
-│   │   ├── scripts/
+│   │   ├── scripts
 │   │   │   ├── start-testnet.sh
 │   │   │   └── stop-testnet.sh
-│   │   ├── src/
+│   │   ├── src
 │   │   │   ├── block.rs
 │   │   │   ├── broadcast.rs
-│   │   │   ├── config/
+│   │   │   ├── config
 │   │   │   │   └── mod.rs
-│   │   │   ├── consensus/
+│   │   │   ├── consensus
 │   │   │   │   ├── consensus_algorithm.rs
 │   │   │   │   └── mod.rs
 │   │   │   ├── contracts.rs
 │   │   │   ├── lib.rs
 │   │   │   ├── main.rs
-│   │   │   ├── node/
+│   │   │   ├── node
 │   │   │   │   ├── mod.rs
-│   │   │   │   └── synergyd.rs*
-│   │   │   ├── p2p/
+│   │   │   │   └── synergyd.rs
+│   │   │   ├── p2p
 │   │   │   │   ├── identity.rs
 │   │   │   │   ├── mod.rs
 │   │   │   │   └── networking.rs
-│   │   │   ├── rpc/
+│   │   │   ├── rpc
 │   │   │   │   ├── mod.rs
 │   │   │   │   └── rpc_server.rs
 │   │   │   └── transaction.rs
-│   │   └── tests/
+│   │   └── tests
 │   │       ├── test_blockchain.rs
 │   │       ├── test_consensus_algorithm.rs
 │   │       ├── test_p2p_networking.rs
@@ -721,32 +679,113 @@ synergy-network
 │   │       ├── test_smart_contracts.rs
 │   │       ├── test_synergyd.rs
 │   │       └── test_transactions.rs
-│   ├── synergy-testnet.zip
-│   ├── synergy-wallet/
-│   │   ├── api/
+│   ├── synergy-wallet
+│   │   ├── api
 │   │   │   ├── sns-resolver.js
 │   │   │   └── uma-resolver.js
 │   │   ├── file_structure.md
-│   │   ├── metamask-snap/
+│   │   ├── Icon\015
+│   │   ├── metamask-snap
 │   │   │   ├── snap.manafest.json
-│   │   │   └── src/
+│   │   │   └── src
 │   │   │       └── index.js
-│   │   ├── README.md
-│   │   ├── sdk/
-│   │   │   ├── javascript/
+│   │   ├── package.json
+│   │   ├── package-lock.json
+│   │   ├── rainbow.html
+│   │   ├── sdk
+│   │   │   ├── javascript
 │   │   │   │   └── synergy.js
-│   │   │   ├── python/
+│   │   │   ├── python
 │   │   │   │   └── synergy.py
 │   │   │   └── README.md
-│   │   └── synergy-wallet-app/
-│   │       ├── desktop/
-│   │       ├── extension/
-│   │       ├── mobile/
-│   │       └── shared/
-│   └── untitled folder/
-│       └── index.html
-├── 02-mainnet/
-├── 03-documentation/
+│   │   ├── synergy-wallet
+│   │   │   ├── backend
+│   │   │   │   ├── app.py
+│   │   │   │   └── requirements.txt
+│   │   │   ├── bg.html
+│   │   │   ├── id.json
+│   │   │   ├── index.html
+│   │   │   ├── metadata.json
+│   │   │   ├── package.json
+│   │   │   ├── package-lock.json
+│   │   │   ├── project-tree.txt
+│   │   │   ├── public
+│   │   │   │   ├── favicon.ico
+│   │   │   │   ├── index.html
+│   │   │   │   ├── pqc
+│   │   │   │   │   └── dilithium_wasm.wasm
+│   │   │   │   ├── pqc.py
+│   │   │   │   ├── rainbow.gif
+│   │   │   │   ├── synergy_logo.png
+│   │   │   │   └── token_ledger.json
+│   │   │   ├── README.md
+│   │   │   ├── removed
+│   │   │   │   ├── CreateWalletWizard.jsx
+│   │   │   │   └── ImportWalletWizard.jsx
+│   │   │   ├── requirements-pyodide.txt
+│   │   │   └── src
+│   │   │       ├── api
+│   │   │       │   └── pqcCrypto.js
+│   │   │       ├── App.jsx
+│   │   │       ├── assets
+│   │   │       ├── components
+│   │   │       │   ├── logo.png
+│   │   │       │   ├── MainContent.jsx
+│   │   │       │   ├── PQCWallet.jsx
+│   │   │       │   ├── Section.jsx
+│   │   │       │   └── Sidebar.jsx
+│   │   │       ├── index.jsx
+│   │   │       ├── modals
+│   │   │       │   ├── Modal.jsx
+│   │   │       │   └── UnifiedWalletWizard.jsx
+│   │   │       ├── pages
+│   │   │       │   ├── Dashboard.jsx
+│   │   │       │   └── LoginPage.jsx
+│   │   │       ├── pqc
+│   │   │       │   ├── dilithium.js
+│   │   │       │   └── dilithium_wasm.js
+│   │   │       ├── styles
+│   │   │       │   ├── global.css
+│   │   │       │   ├── main.css
+│   │   │       │   └── WalletWizard.css
+│   │   │       └── utils
+│   │   │           ├── hexUtils.jsx
+│   │   │           └── synergyAddress.jsx
+│   │   └── synergy-wallet.zip
+│   └── synergy-wallet (2)
+│       ├── __MACOSX
+│       │   └── synergy-wallet
+│       │       ├── api
+│       │       ├── metamask-snap
+│       │       │   └── src
+│       │       ├── sdk
+│       │       │   ├── javascript
+│       │       │   └── python
+│       │       └── synergy-wallet-app
+│       └── synergy-wallet
+│           ├── api
+│           │   ├── sns-resolver.js
+│           │   └── uma-resolver.js
+│           ├── file_structure.md
+│           ├── metamask-snap
+│           │   ├── snap.manafest.json
+│           │   └── src
+│           │       └── index.js
+│           ├── README.md
+│           ├── sdk
+│           │   ├── javascript
+│           │   │   └── synergy.js
+│           │   ├── python
+│           │   │   └── synergy.py
+│           │   └── README.md
+│           └── synergy-wallet-app
+│               ├── desktop
+│               ├── extension
+│               ├── mobile
+│               └── shared
+├── 02-mainnet
+│   └── Icon\015
+├── 03-documentation
 │   ├── ARTICLES OF ORGANIZATION.docx
 │   ├── Business Model Document.docx
 │   ├── chainlist instructions.docx
@@ -756,6 +795,7 @@ synergy-network
 │   ├── Development Deliverables Checklist.docx
 │   ├── Emergency Governance Rollback Policy.docx
 │   ├── Governance Organizational Chart.docx
+│   ├── Icon\015
 │   ├── Layer2 Networks.docx
 │   ├── OPERATING AGREEMENT.docx
 │   ├── Real World Use Cases.docx
@@ -764,19 +804,9 @@ synergy-network
 │   ├── Security Risk Assessment Report.docx
 │   ├── server channels.xlsx
 │   ├── server data.docx
-│   ├── Synergy Network Address Formatting copy.docx
-│   ├── Synergy Network Address Formatting.docx
-│   ├── Synergy Network Checklist 1.docx
-│   ├── Synergy Network Checklist 2.docx
-│   ├── Synergy Network Checklist 3.docx
-│   ├── Synergy Network Checklist.docx
-│   ├── Synergy Network Configuration Specification.docx
-│   ├── Synergy Network Documentation Index.docx
-│   ├── Synergy Network Website Content Brief.docx
-│   ├── Synergy Network.docx
 │   ├── Synergy_Founding_Team_Status.md
-│   ├── synergy-logo-files/
-│   │   ├── animation/
+│   ├── synergy-logo-files
+│   │   ├── animation
 │   │   │   ├── 0001.png
 │   │   │   ├── 0009.png
 │   │   │   ├── 0017.png
@@ -797,7 +827,7 @@ synergy-network
 │   │   │   ├── 0137.png
 │   │   │   ├── 0145.png
 │   │   │   ├── 0153.png
-│   │   │   └── untitled folder/
+│   │   │   └── untitled folder
 │   │   │       ├── 0001.png
 │   │   │       ├── 0009.png
 │   │   │       ├── 0017.png
@@ -823,7 +853,7 @@ synergy-network
 │   │   ├── dark-gradient.png
 │   │   ├── dark-logo-blk-outline.png
 │   │   ├── dark-logo-white-outline.png
-│   │   ├── dark-themed/
+│   │   ├── dark-themed
 │   │   │   ├── dark-colored-glow-black-ol.png
 │   │   │   ├── dark-colored-glow-white-ol.png
 │   │   │   ├── dark-colored-logo.png
@@ -838,7 +868,7 @@ synergy-network
 │   │   ├── light-gradient.png
 │   │   ├── light-gradient.psd
 │   │   ├── light-logo-blk-outline.png
-│   │   ├── light-themed/
+│   │   ├── light-themed
 │   │   │   ├── light-colored-glow-black-ol.png
 │   │   │   ├── light-colored-glow-white-ol.png
 │   │   │   ├── light-colored-logo.png
@@ -846,33 +876,45 @@ synergy-network
 │   │   │   ├── light-gradient.png
 │   │   │   └── logo-outline.psd
 │   │   ├── logo-black.png
-│   │   ├── logo-outline copy.psd
-│   │   ├── logo-outline-base-white.png
 │   │   ├── logo-outline-base.png
-│   │   ├── logo-outline-Recovered.png
+│   │   ├── logo-outline-base-white.png
+│   │   ├── logo-outline copy.psd
 │   │   ├── logo-outline.png
 │   │   ├── logo-outline.psd
-│   │   ├── logo-w-names/
+│   │   ├── logo-outline-Recovered.png
+│   │   ├── logo.psd
+│   │   ├── logo-white.png
+│   │   ├── logo-w-names
 │   │   │   ├── name-logo-dark.png
 │   │   │   ├── name-logo-light.png
 │   │   │   ├── sn-logo.png
 │   │   │   └── utility_logo.png
-│   │   ├── logo-white.png
-│   │   ├── logo.psd
-│   │   ├── redesign/
+│   │   ├── redesign
 │   │   │   ├── blue-l.png
 │   │   │   ├── green-l.png
 │   │   │   ├── orng-l.png
 │   │   │   └── red-l.png
+│   │   ├── sn-logo.png
 │   │   ├── syn-d.png
-│   │   ├── syn-l.png
-│   │   └── Synergy_Explorer_Logos/
-│   │       ├── explorer-b.png
-│   │       ├── explorer-main-b.png
-│   │       ├── explorer-main-w.png
-│   │       └── explorer-w.png
-│   ├── synergy-utility-diagrams/
-│   │   ├── global/
+│   │   ├── Synergy_Explorer_Logos
+│   │   │   ├── explorer-b.png
+│   │   │   ├── explorer-main-b.png
+│   │   │   ├── explorer-main-w.png
+│   │   │   └── explorer-w.png
+│   │   └── syn-l.png
+│   ├── Synergy Network Address Formatting copy.docx
+│   ├── Synergy Network Address Formatting.docx
+│   ├── Synergy Network Address Formatting.odt
+│   ├── Synergy Network Checklist 1.docx
+│   ├── Synergy Network Checklist 2.docx
+│   ├── Synergy Network Checklist 3.docx
+│   ├── Synergy Network Checklist.docx
+│   ├── Synergy Network Configuration Specification.docx
+│   ├── Synergy Network Documentation Index.docx
+│   ├── Synergy Network.docx
+│   ├── Synergy Network Website Content Brief.docx
+│   ├── synergy-utility-diagrams
+│   │   ├── global
 │   │   │   ├── Data_Mapping.mmd
 │   │   │   ├── Data_Mapping.png
 │   │   │   ├── Master_Tree_Diagram.mmd
@@ -883,12 +925,12 @@ synergy-network
 │   │   │   ├── Swimlane_Tool_Interactions.png
 │   │   │   ├── Validator_States.mmd
 │   │   │   └── Validator_States.png
-│   │   ├── governance/
+│   │   ├── governance
 │   │   │   ├── Submit_Proposal_Sequence.mmd
 │   │   │   ├── Submit_Proposal_Sequence.png
 │   │   │   ├── View_Proposals_Sequence.mmd
 │   │   │   └── View_Proposals_Sequence.png
-│   │   ├── settings/
+│   │   ├── settings
 │   │   │   ├── Backup_Wallet_Settings_Sequence.mmd
 │   │   │   ├── Backup_Wallet_Settings_Sequence.png
 │   │   │   ├── CLI_GUI_Toggle_Sequence.mmd
@@ -899,14 +941,14 @@ synergy-network
 │   │   │   ├── Theme_Toggle_Sequence.png
 │   │   │   ├── View_Logs_Sequence.mmd
 │   │   │   └── View_Logs_Sequence.png
-│   │   ├── sns/
+│   │   ├── sns
 │   │   │   ├── Link_SNS_Token_Sequence.mmd
 │   │   │   ├── Link_SNS_Token_Sequence.png
 │   │   │   ├── Link_SNS_Wallet_Sequence.mmd
 │   │   │   ├── Link_SNS_Wallet_Sequence.png
 │   │   │   ├── Register_SNS_Sequence.mmd
 │   │   │   └── Register_SNS_Sequence.png
-│   │   ├── tokens/
+│   │   ├── tokens
 │   │   │   ├── Attach_SNS_Token_Sequence.mmd
 │   │   │   ├── Attach_SNS_Token_Sequence.png
 │   │   │   ├── Burn_Token_Sequence.mmd
@@ -917,10 +959,10 @@ synergy-network
 │   │   │   ├── Push_Token_Metadata_Sequence.png
 │   │   │   ├── View_Token_Sequence.mmd
 │   │   │   └── View_Token_Sequence.png
-│   │   ├── uma/
+│   │   ├── uma
 │   │   │   ├── View_UMA_Sequence.mmd
 │   │   │   └── View_UMA_Sequence.png
-│   │   ├── validators/
+│   │   ├── validators
 │   │   │   ├── Start_Validator_Sequence.mmd
 │   │   │   ├── Start_Validator_Sequence.png
 │   │   │   ├── Stop_Validator_Sequence.mmd
@@ -929,7 +971,7 @@ synergy-network
 │   │   │   ├── View_Validator_Rewards_Sequence.png
 │   │   │   ├── Vote_Validator_Proposal_Sequence.mmd
 │   │   │   └── Vote_Validator_Proposal_Sequence.png
-│   │   └── wallets/
+│   │   └── wallets
 │   │       ├── Create_Wallet_Sequence.mmd
 │   │       ├── Create_Wallet_Sequence.png
 │   │       ├── Manage_Wallets_Sequence.mmd
@@ -941,8 +983,208 @@ synergy-network
 │   ├── Tokenomics Whitepaper.docx
 │   ├── Top 15 Blockchain Networks Details.docx
 │   ├── Top Unique Blockchain Networks.docx
-│   ├── Use Cases.docx
-│   └── Whitepaper/
-└── project-file-tree.txt
+│   ├── Untitled 1.odt
+│   └── Use Cases.docx
+├── AGENTS.md
+├── Brand Kit
+│   ├── Favicons (sn-logo)
+│   │   ├── favicon-114-precomposed.png
+│   │   ├── favicon-120-precomposed.png
+│   │   ├── favicon-144-precomposed.png
+│   │   ├── favicon-152-precomposed.png
+│   │   ├── favicon-180-precomposed.png
+│   │   ├── favicon-192.png
+│   │   ├── favicon-32.png
+│   │   ├── favicon-36.png
+│   │   ├── favicon-48.png
+│   │   ├── favicon-57.png
+│   │   ├── favicon-60.png
+│   │   ├── favicon-72.png
+│   │   ├── favicon-72-precomposed.png
+│   │   ├── favicon-76.png
+│   │   ├── favicon-96.png
+│   │   ├── favicon.ico
+│   │   ├── Icon\015
+│   │   ├── index.html
+│   │   └── manifest.json
+│   ├── icon.iconset
+│   │   ├── Icon\015
+│   │   ├── icon_1024x1024.png
+│   │   ├── icon_128x128@2x.png
+│   │   ├── icon_128x128.png
+│   │   ├── icon_16x16@2x.png
+│   │   ├── icon_16x16.png
+│   │   ├── icon_2048x2048.png
+│   │   ├── icon_256x256@2x.png
+│   │   ├── icon_256x256.png
+│   │   ├── icon_256x256.svg
+│   │   ├── icon_32x32@2x.png
+│   │   ├── icon_32x32.png
+│   │   ├── icon_512x512@2x.png
+│   │   └── icon_512x512.png
+│   ├── logo.psd
+│   ├── sn-logo.icns
+│   └── synergy_network
+│       ├── banner.png
+│       ├── BRAND-GUIDELINES.png
+│       ├── brand-kit.png
+│       ├── dao.png
+│       ├── developer.png
+│       ├── dev-portal-banner.png
+│       ├── docs.png
+│       ├── explorer-banner.png
+│       ├── favicon.png
+│       ├── folder-icon.psd
+│       ├── Icon\015
+│       ├── icon_128x128.png
+│       ├── icon_32x32@2x-Recovered.psd
+│       ├── kbase-banner.png
+│       ├── logo.png
+│       ├── mainnet-explorer-banner.png
+│       ├── mainnet-explorer.png
+│       ├── mainnet.png
+│       ├── portal.png
+│       ├── project-files.png
+│       ├── smart-contracts.png
+│       ├── testnet-explorer-banner.png
+│       ├── testnet-explorer.png
+│       ├── testnet.png
+│       ├── Untitled-1-Recovered.psd
+│       ├── Untitled-2-Recovered.psd
+│       ├── utility-tool.png
+│       └── wallet.png
+├── CONTRIBUTING.md
+├── dilithium-wasm
+│   ├── a.out.js
+│   ├── a.out.wasm
+│   ├── build.sh
+│   ├── demo.html
+│   ├── dilithium.js
+│   ├── dilithium_wasm.js
+│   ├── dilithium_wasm.wasm
+│   ├── README.md
+│   ├── src
+│   │   ├── api.h
+│   │   ├── config.h
+│   │   ├── fips202.c
+│   │   ├── fips202.h
+│   │   ├── Makefile
+│   │   ├── ntt.c
+│   │   ├── ntt.h
+│   │   ├── packing.c
+│   │   ├── packing.h
+│   │   ├── params.h
+│   │   ├── poly.c
+│   │   ├── poly.h
+│   │   ├── polyvec.c
+│   │   ├── polyvec.h
+│   │   ├── precomp.gp
+│   │   ├── randombytes.c
+│   │   ├── randombytes.h
+│   │   ├── reduce.c
+│   │   ├── reduce.h
+│   │   ├── rounding.c
+│   │   ├── rounding.h
+│   │   ├── sign.c
+│   │   ├── sign.h
+│   │   ├── symmetric.h
+│   │   └── symmetric-shake.c
+│   ├── wasm_randombytes.c
+│   └── wasm_wrapper.c
+├── dilithium-wasm.zip
+├── Icon\015
+├── index.html
+├── locked-syn
+│   ├── artifacts
+│   │   ├── build-info
+│   │   │   └── 71be134dfa1a65c5370360e1a1de30ae.json
+│   │   ├── contracts
+│   │   │   ├── LockedSynergyToken.sol
+│   │   │   │   ├── LockedSynergyToken.dbg.json
+│   │   │   │   └── LockedSynergyToken.json
+│   │   │   └── Lock.sol
+│   │   │       ├── Lock.dbg.json
+│   │   │       └── Lock.json
+│   │   └── @openzeppelin
+│   │       └── contracts
+│   │           ├── access
+│   │           │   └── Ownable.sol
+│   │           │       ├── Ownable.dbg.json
+│   │           │       └── Ownable.json
+│   │           ├── token
+│   │           │   └── ERC20
+│   │           │       ├── ERC20.sol
+│   │           │       │   ├── ERC20.dbg.json
+│   │           │       │   └── ERC20.json
+│   │           │       ├── extensions
+│   │           │       │   └── IERC20Metadata.sol
+│   │           │       │       ├── IERC20Metadata.dbg.json
+│   │           │       │       └── IERC20Metadata.json
+│   │           │       └── IERC20.sol
+│   │           │           ├── IERC20.dbg.json
+│   │           │           └── IERC20.json
+│   │           └── utils
+│   │               └── Context.sol
+│   │                   ├── Context.dbg.json
+│   │                   └── Context.json
+│   ├── cache
+│   │   └── solidity-files-cache.json
+│   ├── contracts
+│   │   ├── LockedSynergyToken.sol
+│   │   └── Lock.sol
+│   ├── hardhat.config.js
+│   ├── ignition
+│   │   └── modules
+│   │       └── Lock.js
+│   ├── notes.txt
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   └── test
+│       └── Lock.js
+├── project-file-tree.txt
+├── synergy-cc
+│   ├── frontend
+│   │   ├── eslint.config.js
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   ├── package-lock.json
+│   │   ├── public
+│   │   │   └── vite.svg
+│   │   ├── README.md
+│   │   ├── src
+│   │   │   ├── App.jsx
+│   │   │   ├── assets
+│   │   │   │   └── react.svg
+│   │   │   ├── components
+│   │   │   │   ├── Background.jsx
+│   │   │   │   ├── CustomTitleBar.jsx
+│   │   │   │   └── Sidebar.jsx
+│   │   │   ├── main.jsx
+│   │   │   └── styles
+│   │   │       ├── App.css
+│   │   │       ├── Background.css
+│   │   │       ├── CustomTitleBar.css
+│   │   │       ├── GlassButton.css
+│   │   │       ├── Sidebar.css
+│   │   │       └── WindowBorder.css
+│   │   └── vite.config.js
+│   ├── main.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── preload.js
+├── synergy-cli
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── synergy_tool
+│   │   ├── cli.py
+│   │   ├── cross.py
+│   │   ├── __init__.py
+│   │   ├── sns.py
+│   │   ├── syntoken.py
+│   │   ├── uma.py
+│   │   └── wallet.py
+│   └── wallet.json
+└── synergy-cli.zip
 
-197 directories, 749 files
+252 directories, 936 files

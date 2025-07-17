@@ -1,5 +1,6 @@
 import click
-from . import wallet, sns, token, uma, cross
+import json
+from . import wallet, sns, syntoken, uma, cross
 
 
 @click.group()
@@ -85,6 +86,22 @@ def token_mint(symbol, amount):
 def token_burn(symbol, amount):
     token.burn(symbol, amount)
     click.echo("Burned")
+
+
+@token_cmd.command("deposit")
+@click.argument("symbol")
+@click.argument("address")
+@click.argument("amount", type=int)
+def token_deposit(symbol, address, amount):
+    token.deposit(symbol, address, amount)
+    click.echo("Deposited")
+
+
+@token_cmd.command("balance")
+@click.argument("address")
+def token_balance(address):
+    bal = token.balance_of(address)
+    click.echo(json.dumps(bal))
 
 
 @token_cmd.command("info")

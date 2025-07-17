@@ -1,0 +1,55 @@
+./
+├── backend/
+│   └── app.py
+├── bg.html
+├── config-overrides.js
+├── .env
+├── .gitignore
+├── id.json
+├── index.html
+├── metadata.json
+├── package.json
+├── package-lock.json
+├── public/
+│   ├── index.html
+│   ├── pqc/
+│   ├── pqc.py
+│   └── token_ledger.json
+├── README.md
+└── src/
+    ├── api/
+    │   └── pqcCrypto.js
+    ├── App.jsx
+    ├── assets/
+    ├── components/
+    │   ├── MainContent.jsx
+    │   ├── PQCWallet.jsx
+    │   ├── Section.jsx
+    │   ├── Sidebar.jsx
+    │   ├── walletDetails.jsx
+    │   └── walletList.js
+    ├── hooks/
+    │   └── useWallets.js
+    ├── index.jsx
+    ├── modals/
+    │   ├── Modal.jsx
+    │   └── umaWalletWizard.jsx
+    ├── pages/
+    │   ├── Dashboard.jsx
+    │   └── LoginPage.jsx
+    ├── pqc/
+    │   ├── dilithium.js
+    │   └── dilithium_wasm.js
+    ├── styles/
+    │   ├── global.css
+    │   ├── main.css
+    │   └── WalletWizard.css
+    └── utils/
+        ├── address.js
+        ├── bip39utils.js
+        ├── crypto.js
+        ├── hexUtils.jsx
+        ├── pqc.js
+        └── synergyAddress.jsx
+
+14 directories, 39 files

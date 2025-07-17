@@ -5,7 +5,7 @@ from .wallet import (
     eth_address,
     sol_address,
 )
-from . import sns, token, uma, cross
+from . import sns, syntoken, uma, cross
 
 __all__ = [
     "create_wallet",
@@ -14,7 +14,7 @@ __all__ = [
     "eth_address",
     "sol_address",
     "sns",
-    "token",
+    "syntoken",
     "uma",
     "cross",
 ]
